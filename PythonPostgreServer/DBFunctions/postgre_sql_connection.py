@@ -19,7 +19,7 @@ def database_connection() -> psycopg2.connect:
         cursor.execute("""CREATE TABLE IF NOT EXISTS users(
         login varchar(100) PRIMARY KEY,
         password varchar(20) NOT NULL,
-        nick_name varchar(100) NOT NULL,
+        nick_name varchar(100),
         date_of_birth date,
         recipes_owner integer ARRAY)""")
         logger.info("Таблица users успешно создана/подключена")
