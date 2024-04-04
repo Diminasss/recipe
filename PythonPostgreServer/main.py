@@ -1,8 +1,10 @@
 from flask import Flask, wrappers, request, jsonify
 from logger import initialize_logger
+from DBFunctions.users_functions import user_is_in_table
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
+
 
 # Обработчик для CORS
 @app.after_request
@@ -15,7 +17,7 @@ def after_request(response) -> wrappers.Response:
 
 @app.route("/person", methods=['POST'])
 def get_person() -> tuple[wrappers.Response, int]:
-    logger.info(f"Запрос в функциb")
+    logger.info(f"Запрос в функцию {get_person.__name__}")
     # Получаем данные из тела запроса в формате JSON
     request_data = request.get_json()
 
@@ -27,5 +29,4 @@ def get_person() -> tuple[wrappers.Response, int]:
 
 
 if __name__ == "__main__":
-
-    app.run(debug=True)
+    app.run(debug=False)
