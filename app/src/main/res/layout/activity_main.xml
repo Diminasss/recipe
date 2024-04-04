@@ -4,32 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="#5AE0EC"
+    android:background="#9259EC59"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="60dp"
+        android:id="@+id/cardView"
+        android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="60dp"
         app:cardCornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/иконка"/>
+            android:src="@drawable/иконка" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
 
+    <EditText
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Электронный адрес"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="238dp" />
+
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Пароль"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="297dp" />
+
+
+    <Button
+        android:text="Войти"
+        android:layout_width="169dp"
+        android:layout_height="41dp"
+        android:id="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="380dp" />
+
+
+    <TextView
+        android:layout_width="198dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Нет аккаунта?"
+        android:textSize="12dp"
+
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Авторизация"
+        android:textStyle="bold"
+        android:textSize="20dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
