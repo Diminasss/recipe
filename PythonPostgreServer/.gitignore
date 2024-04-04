@@ -107,3 +107,4 @@ cython_debug/
 .idea/
 .venv/
 .idea
+test_file.py
