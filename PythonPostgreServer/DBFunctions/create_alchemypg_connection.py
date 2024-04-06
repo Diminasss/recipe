@@ -16,7 +16,7 @@ users_table = Table(
     metadata_obj,
     Column("login", String, primary_key=True),
     Column("password", String),
-    Column("nickname", String),
+    Column("nick_name", String),
     Column("date_of_birth", Date),
     Column("recipes_owner", ARRAY(Integer)),
 )
