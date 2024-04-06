@@ -30,7 +30,9 @@ def get_person() -> tuple[wrappers.Response, int]:
 
     if user_is_in_table(login):
         if log_in(login, password):
-            return jsonify({"logged_in?": "success", "login": "", "nickname": "", "date_of_birth": "", "recipes_owner": ""}), 200
+
+            response: dict = {"logged_in?": "success", "login": "", "nickname": "", "date_of_birth": "", "recipes_owner": ""}
+            return jsonify(response), 200
         else:
             return jsonify({"logged_in?": "invalid_password", "login": "", "nickname": "", "date_of_birth": "", "recipes_owner": ""}), 200
     return jsonify({"logged_in?": "no_user", "login": "", "nickname": "", "date_of_birth": "", "recipes_owner": ""}), 200
