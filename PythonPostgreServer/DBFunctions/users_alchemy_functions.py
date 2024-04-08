@@ -1,6 +1,5 @@
-import datetime
 from DBFunctions.create_alchemypg_connection import engine, users_table
-from sqlalchemy import insert, select, Table, Connection
+from sqlalchemy import insert, select, Table
 
 
 def user_is_in_table(login: str) -> bool:
@@ -15,7 +14,7 @@ def user_is_in_table(login: str) -> bool:
         return bool(result.fetchone())
 
 
-def user_initialisation(login: str, password: str, nick_name: str, date_of_birth: datetime.date = None, recipes_owner: list = None) -> None:
+def user_initialisation(login: str, password: str, nick_name: str, date_of_birth: str = None, recipes_owner: list = None) -> None:
     """
     Для инициализации обязательно ввести логин, пароль, никнейм и дату рождения
     :param login:
@@ -80,6 +79,13 @@ def log_in(login: str, password: str) -> bool:
 def get_all_user_information_excluding_password(login: str) -> dict[str: any]:
     with engine.connect() as connection:
         statement = select(users_table).where(users_table.c.login == login)
-        result = connection.execute(statement).fetchone()._asdict()
+        result = connection.execute(statement)
+
+        key: list[str] = list(result.keys())
+        values: list[str] = list(result.one())
+        result: dict[str: any] = dict(zip(key, values))
+
+        print("result", result)
+
         del result['password']
         return result

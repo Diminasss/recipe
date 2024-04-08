@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, MetaData
-from sqlalchemy import Table, Column, Integer, String, Date, ARRAY
+from sqlalchemy import Table, Column, Integer, String, ARRAY
 from DBFunctions.config import Config
 
 engine = create_engine(
@@ -17,11 +17,8 @@ users_table = Table(
     Column("login", String, primary_key=True),
     Column("password", String),
     Column("nick_name", String),
-    Column("date_of_birth", Date),
+    Column("date_of_birth", String),
     Column("recipes_owner", ARRAY(Integer)),
 )
 
 metadata_obj.create_all(engine)
-
-
-

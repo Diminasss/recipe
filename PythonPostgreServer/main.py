@@ -1,6 +1,6 @@
 from flask import Flask, wrappers, request, jsonify
 from logger import initialize_logger
-from DBFunctions.users_alchemy_functions import user_is_in_table, log_in
+from DBFunctions.users_alchemy_functions import user_is_in_table, log_in, get_all_user_information_excluding_password
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
@@ -35,12 +35,12 @@ def get_person() -> tuple[wrappers.Response, int]:
 
     if user_is_in_table(login):
         if log_in(login, password):
-
-            response: dict = {"logged_in?": "success", "login": login, "nickname": "", "date_of_birth": "", "recipes_owner": ""}
-            return jsonify(response), 200
+            user_information: dict[str, any] = get_all_user_information_excluding_password(login)
+            user_information['logged_in?'] = "successfully"
+            return jsonify(user_information), 200
         else:
-            return jsonify({"logged_in?": "invalid_password", "login": "", "nickname": "", "date_of_birth": "", "recipes_owner": ""}), 200
-    return jsonify({"logged_in?": "no_user", "login": "", "nickname": "", "date_of_birth": "", "recipes_owner": ""}), 200
+            return jsonify({"logged_in?": "invalid_password"}), 200
+    return jsonify({"logged_in?": "no_user"}), 200
 
 
 if __name__ == "__main__":
