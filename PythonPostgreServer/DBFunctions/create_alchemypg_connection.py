@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, Date, ARRAY
-from config import Config
+from DBFunctions.config import Config
 
 engine = create_engine(
     url=Config.url,

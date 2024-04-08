@@ -1,6 +1,6 @@
 import datetime
-from create_alchemypg_connection import engine, users_table
-from sqlalchemy import insert, select, Table
+from DBFunctions.create_alchemypg_connection import engine, users_table
+from sqlalchemy import insert, select, Table, Connection
 
 
 def user_is_in_table(login: str) -> bool:
@@ -67,3 +67,19 @@ def get_from_postgresql_table(table: Table, login: str, column_name: str) -> any
             return data
     else:
         return "Not found"
+
+
+def log_in(login: str, password: str) -> bool:
+    real_password: str = get_from_postgresql_table(users_table, login, "password")
+    if password == real_password:
+        return True
+    else:
+        return False
+
+
+def get_all_user_information_excluding_password(login: str) -> dict[str: any]:
+    with engine.connect() as connection:
+        statement = select(users_table).where(users_table.c.login == login)
+        result = connection.execute(statement).fetchone()._asdict()
+        del result['password']
+        return result
