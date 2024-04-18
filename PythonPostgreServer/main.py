@@ -1,6 +1,7 @@
 from flask import Flask, wrappers, request, jsonify
 from logger import initialize_logger
-from DBFunctions.users_alchemy_functions import user_is_in_table, log_in, get_all_user_information_excluding_password
+from DBFunctions.users_alchemy_functions import (user_is_in_table, log_in, get_all_user_information_excluding_password,
+                                                 delete_user)
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
@@ -30,8 +31,8 @@ def get_person() -> tuple[wrappers.Response, int]:
 
     request_data = request.get_json()
 
-    login: str = request_data.get('login')
-    password: str = request_data.get('password')
+    login: str = str(request_data.get('login'))
+    password: str = str(request_data.get('password'))
 
     if user_is_in_table(login):
         if log_in(login, password):
@@ -41,6 +42,16 @@ def get_person() -> tuple[wrappers.Response, int]:
         else:
             return jsonify({"logged_in?": "invalid_password"}), 200
     return jsonify({"logged_in?": "no_user"}), 200
+
+
+@app.route("/delete_person", methods=['POST'])
+def delete_person() -> tuple[wrappers.Response, int]:
+    logger.info(f"Произведение удаления пользователя в {delete_person.__name__}")
+    request_data = request.get_json()
+
+    login: str = str(request_data.get('login'))
+    result = delete_user(login)
+    return jsonify(result), 200
 
 
 if __name__ == "__main__":

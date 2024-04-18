@@ -1,5 +1,5 @@
 from DBFunctions.create_alchemypg_connection import engine, users_table
-from sqlalchemy import insert, select, Table
+from sqlalchemy import insert, select, Table, delete
 
 
 def user_is_in_table(login: str) -> bool:
@@ -16,7 +16,7 @@ def user_is_in_table(login: str) -> bool:
 
 def user_initialisation(login: str, password: str, nick_name: str, date_of_birth: str = None, recipes_owner: list = None) -> None:
     """
-    Для инициализации обязательно ввести логин, пароль, никнейм и дату рождения
+    Для инициализации обязательно ввести логин, пароль, никнейм
     :param login:
     :param password:
     :param nick_name:
@@ -89,3 +89,15 @@ def get_all_user_information_excluding_password(login: str) -> dict[str: any]:
 
         del result['password']
         return result
+
+
+def delete_user(login: str) -> dict[str: str]:
+    if user_is_in_table(login):
+        with engine.connect() as connection:
+            statement = delete(users_table).where(users_table.c.login == login)
+            connection.execute(statement)
+
+            connection.commit()
+        return {"result": "successfully deleted", "login": login}
+    else:
+        return {"result": "Not found", "login": login}
