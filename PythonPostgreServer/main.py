@@ -19,7 +19,7 @@ def after_request(response) -> wrappers.Response:
 @app.route("/person", methods=['POST'])
 def get_person() -> tuple[wrappers.Response, int]:
     """
-    Может отправить в logged_in?: successfully, invalid_password и no_user.
+    Может отправить в result: successfully, invalid_password и no_user.
 
     Функция определяет, зарегистрирован ли пользователь. Если пользователь не зарегистрирован, то возвращает json с
     "no_user", если пользователь ввёл неверный пароль, то "invalid_password", если пользователь ввёл верный пароль и при
@@ -37,11 +37,11 @@ def get_person() -> tuple[wrappers.Response, int]:
     if user_is_in_table(login):
         if log_in(login, password):
             user_information: dict[str, any] = get_all_user_information_excluding_password(login)
-            user_information['logged_in?'] = "successfully"
+            user_information['result'] = "successfully"
             return jsonify(user_information), 200
         else:
-            return jsonify({"logged_in?": "invalid_password"}), 200
-    return jsonify({"logged_in?": "no_user"}), 200
+            return jsonify({"result": "invalid_password"}), 200
+    return jsonify({"result": "no_user"}), 200
 
 
 @app.route("/delete_person", methods=['POST'])

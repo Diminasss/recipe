@@ -59,9 +59,6 @@ def get_from_postgresql_table(table: Table, login: str, column_name: str) -> any
         with engine.connect() as connection:
             statement = select(table.c[column_name]).where(table.c.login == login)
             result = connection.execute(statement)
-            print("")
-            print(result)
-            print("")
             data = result.scalar()
             return data
     else:
@@ -84,8 +81,6 @@ def get_all_user_information_excluding_password(login: str) -> dict[str: any]:
         key: list[str] = list(result.keys())
         values: list[str] = list(result.one())
         result: dict[str: any] = dict(zip(key, values))
-
-        print("result", result)
 
         del result['password']
         return result
