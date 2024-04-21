@@ -1,5 +1,5 @@
 from DBFunctions.create_alchemypg_connection import engine, users_table
-from sqlalchemy import insert, select, Table, delete
+from sqlalchemy import insert, select, Table, delete, update
 
 
 def user_is_in_table(login: str) -> bool:
@@ -93,14 +93,17 @@ def delete_user(login: str) -> dict[str: str]:
             connection.execute(statement)
 
             connection.commit()
-        return {"result": "successfully deleted", "login": login}
+        return {"result": "successfully_deleted", "login": login}
     else:
-        return {"result": "Not found", "login": login}
+        return {"result": "not_found", "login": login}
 
 
-def register_step_one(login: str, password: str, nickname: str) -> None:
-    """
-    Регистрирует пользователя по обязательным полям в базе данных
-    :return:
-    """
-    user_initialisation()
+def edit_sql_table(table: Table, login: str, column_name: str, value: any) -> any:
+    if user_is_in_table(login):
+        with engine.connect() as connection:
+            statement = update(table).where(table.c.login == login).values(date_of_birth=value)
+            connection.execute(statement)
+            connection.commit()
+        return {"result": "successfully_updated", "login": login}
+    else:
+        return {"result": "not_found", "login": login}

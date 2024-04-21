@@ -1,7 +1,8 @@
 from flask import Flask, wrappers, request, jsonify
 from logger import initialize_logger
 from DBFunctions.users_alchemy_functions import (user_is_in_table, log_in, get_all_user_information_excluding_password,
-                                                 delete_user, user_initialisation)
+                                                 delete_user, user_initialisation, edit_sql_table)
+from DBFunctions.create_alchemypg_connection import users_table
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
@@ -16,8 +17,8 @@ def after_request(response) -> wrappers.Response:
     return response
 
 
-@app.route("/person", methods=['POST'])
-def get_person() -> tuple[wrappers.Response, int]:
+@app.route("/log_in", methods=['POST'])
+def log_in() -> tuple[wrappers.Response, int]:
     """
     Может отправить в result: successfully, invalid_password и no_user.
 
@@ -27,7 +28,7 @@ def get_person() -> tuple[wrappers.Response, int]:
 
     :return:
     """
-    logger.info(f"Запрос в функцию {get_person.__name__}")
+    logger.info(f"Запрос в функцию {log_in.__name__}")
 
     request_data = request.get_json()
 
@@ -46,6 +47,10 @@ def get_person() -> tuple[wrappers.Response, int]:
 
 @app.route("/delete_person", methods=['POST'])
 def delete_person() -> tuple[wrappers.Response, int]:
+    """
+    Ответ successfully deleted, not_person метод для удаления аккаунта
+    :return:
+    """
     logger.info(f"Произведение удаления пользователя в {delete_person.__name__}")
     request_data = request.get_json()
 
@@ -56,6 +61,11 @@ def delete_person() -> tuple[wrappers.Response, int]:
 
 @app.route("/register", methods=['POST'])
 def register() -> tuple[wrappers.Response, int]:
+    """
+    Метод для регистрации пользователя
+    Ответами могут быть user_is_already_registered, data_base_error, login_password_and_nick_name_are_necessary, successfully
+    :return:
+    """
     logger.info(f"Производится регистрация пользователя в {register.__name__}")
     request_data: dict = request.get_json()
 
@@ -75,6 +85,19 @@ def register() -> tuple[wrappers.Response, int]:
                 return jsonify({"result": "data_base_error"}), 200
     else:
         return jsonify({"result": "login_password_and_nick_name_are_necessary"}), 200
+
+
+@app.route("/add_birthday", methods=['POST'])
+def add_birthday() -> tuple[wrappers.Response, int]:
+    logger.info(f"Добавление даты в {add_birthday.__name__}")
+
+    request_data: dict = request.get_json()
+    login: str = request_data.get('login')
+    date_of_birth: str = request_data.get('date_of_birth')
+
+    response = edit_sql_table(users_table, login, "date_of_birth", date_of_birth)
+
+    return jsonify(response), 200
 
 
 if __name__ == "__main__":
