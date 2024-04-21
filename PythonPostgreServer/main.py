@@ -1,7 +1,7 @@
 from flask import Flask, wrappers, request, jsonify
 from logger import initialize_logger
 from DBFunctions.users_alchemy_functions import (user_is_in_table, log_in, get_all_user_information_excluding_password,
-                                                 delete_user)
+                                                 delete_user, user_initialisation)
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
@@ -52,6 +52,29 @@ def delete_person() -> tuple[wrappers.Response, int]:
     login: str = str(request_data.get('login'))
     result = delete_user(login)
     return jsonify(result), 200
+
+
+@app.route("/register", methods=['POST'])
+def register() -> tuple[wrappers.Response, int]:
+    logger.info(f"Производится регистрация пользователя в {register.__name__}")
+    request_data: dict = request.get_json()
+
+    login: str = request_data.get('login')
+    password: str = request_data.get('password')
+    nick_name: str = request_data.get('nick_name')
+    date_of_birth: str = request_data.get('date_of_birth')
+
+    if login is not None and password is not None and nick_name is not None:
+        if user_is_in_table(login):
+            return jsonify({"result": "user_is_already_registered"}), 200
+        else:
+            user_initialisation(login, password, nick_name, date_of_birth=date_of_birth)
+            if user_is_in_table(login):
+                return jsonify({"result": "successfully"}), 200
+            else:
+                return jsonify({"result": "data_base_error"}), 200
+    else:
+        return jsonify({"result": "login_password_and_nick_name_are_necessary"}), 200
 
 
 if __name__ == "__main__":

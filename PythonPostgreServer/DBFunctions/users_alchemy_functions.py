@@ -96,3 +96,11 @@ def delete_user(login: str) -> dict[str: str]:
         return {"result": "successfully deleted", "login": login}
     else:
         return {"result": "Not found", "login": login}
+
+
+def register_step_one(login: str, password: str, nickname: str) -> None:
+    """
+    Регистрирует пользователя по обязательным полям в базе данных
+    :return:
+    """
+    user_initialisation()
