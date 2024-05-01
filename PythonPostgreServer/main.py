@@ -132,16 +132,5 @@ def get_users_recipes() -> tuple[wrappers.Response, int]:
     return jsonify(response), 200
 
 
-@app.route("/get_one_recipe", methods=['POST'])
-def get_one_recipe() -> tuple[wrappers.Response, int]:
-    logger.info(f"Получение всех рецептов пользователя в {get_one_recipe.__name__}")
-
-    request_data: dict = request.get_json()
-    recipe_id: int = request_data.get('recipe_id')
-
-    response = ''
-    return jsonify(response), 200
-
-
 if __name__ == "__main__":
     app.run(debug=False)

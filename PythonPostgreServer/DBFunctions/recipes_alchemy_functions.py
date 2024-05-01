@@ -83,10 +83,16 @@ def get_all_recipes_from_user(login: str) -> dict:
         recipes = get_from_postgresql_table(users_table, login, "recipes_owner")
         statement = select(recipes_table).where(recipes_table.c.id.in_(recipes))
         with engine.connect() as connection:
-            result = [list(x) for x in connection.execute(statement).fetchall()]
-        if len(result) == 0:
+            result = connection.execute(statement)
+            rows = result.fetchall()
+            columns = result.keys()
+
+        if len(rows) == 0:
             return {"result": "recipe_is_not_in_table"}
         else:
-            return {"result": result}
+            result_dicts = []
+            for row in rows:
+                result_dicts.append(dict(zip(columns, row)))
+            return {"result": result_dicts}
     else:
         return {"result": "user_is_not_in_table"}
