@@ -20,7 +20,7 @@ def after_request(response) -> wrappers.Response:
 
 
 @app.route("/log_in", methods=['POST'])
-def log_in() -> tuple[wrappers.Response, int]:
+def log_in_account() -> tuple[wrappers.Response, int]:
     """
     Может отправить в result: successfully, invalid_password и no_user.
 

@@ -101,7 +101,7 @@ def delete_user(login: str) -> dict[str: str]:
 def edit_sql_table(table: Table, login: str, column_name: str, value: any) -> any:
     if user_is_in_table(login):
         with engine.connect() as connection:
-            statement = update(table).where(table.c.login == login).values(date_of_birth=value)
+            statement = update(table).where(table.c.login == login).values(**{column_name: value})
             connection.execute(statement)
             connection.commit()
         return {"result": "successfully_updated", "login": login}
