@@ -1,5 +1,5 @@
 from DBFunctions.create_alchemypg_connection import recipes_table, users_table, engine
-from DBFunctions.users_alchemy_functions import edit_sql_table, user_is_in_table
+from DBFunctions.users_alchemy_functions import edit_sql_table, user_is_in_table, get_from_postgresql_table
 from sqlalchemy import select, func, insert
 from logger import initialize_logger
 
@@ -62,5 +62,31 @@ def add_recipe_to_table(login: str, recipe: dict) -> dict:
         edit_sql_table(users_table, login, "recipes_owner", recipes)
 
         return {"result": "success", "id": max_recipe_id}
+    else:
+        return {"result": "user_is_not_in_table"}
+
+
+def recipe_is_in_table(recipe_id: int) -> bool:
+    """
+    Есть ли рецепт в таблице?
+    :param recipe_id:
+    :return:
+    """
+    with engine.connect() as connection:
+        statement = select(recipes_table).where(recipes_table.c.id == recipe_id)
+        result = connection.execute(statement)
+    return bool(result.fetchone())
+
+
+def get_all_recipes_from_user(login: str) -> dict:
+    if user_is_in_table(login):
+        recipes = get_from_postgresql_table(users_table, login, "recipes_owner")
+        statement = select(recipes_table).where(recipes_table.c.id.in_(recipes))
+        with engine.connect() as connection:
+            result = [list(x) for x in connection.execute(statement).fetchall()]
+        if len(result) == 0:
+            return {"result": "recipe_is_not_in_table"}
+        else:
+            return {"result": result}
     else:
         return {"result": "user_is_not_in_table"}

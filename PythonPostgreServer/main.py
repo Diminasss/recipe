@@ -4,7 +4,7 @@ from DBFunctions.users_alchemy_functions import (user_is_in_table, log_in, get_a
                                                  delete_user, user_initialisation, edit_sql_table)
 from DBFunctions.create_alchemypg_connection import users_table
 
-from DBFunctions.recipes_alchemy_functions import add_recipe_to_table
+from DBFunctions.recipes_alchemy_functions import add_recipe_to_table, get_all_recipes_from_user
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
@@ -128,7 +128,7 @@ def get_users_recipes() -> tuple[wrappers.Response, int]:
     request_data: dict = request.get_json()
     login: str = request_data.get('login')
 
-    response = ''
+    response = get_all_recipes_from_user(login)
     return jsonify(response), 200
 
 
