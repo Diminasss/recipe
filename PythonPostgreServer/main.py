@@ -19,6 +19,7 @@ def after_request(response) -> wrappers.Response:
     return response
 
 
+# API входа в аккаунт
 @app.route("/log_in", methods=['POST'])
 def log_in_account() -> tuple[wrappers.Response, int]:
     """
@@ -47,6 +48,7 @@ def log_in_account() -> tuple[wrappers.Response, int]:
     return jsonify({"result": "no_user"}), 200
 
 
+# API удаления аккаунта
 @app.route("/delete_person", methods=['POST'])
 def delete_person() -> tuple[wrappers.Response, int]:
     """
@@ -61,6 +63,7 @@ def delete_person() -> tuple[wrappers.Response, int]:
     return jsonify(result), 200
 
 
+# API регистрация
 @app.route("/register", methods=['POST'])
 def register() -> tuple[wrappers.Response, int]:
     """
@@ -89,6 +92,7 @@ def register() -> tuple[wrappers.Response, int]:
         return jsonify({"result": "login_password_and_nick_name_are_necessary"}), 200
 
 
+# API добавления дня рождения
 @app.route("/add_birthday", methods=['POST'])
 def add_birthday() -> tuple[wrappers.Response, int]:
     logger.info(f"Добавление даты в {add_birthday.__name__}")
@@ -102,19 +106,21 @@ def add_birthday() -> tuple[wrappers.Response, int]:
     return jsonify(response), 200
 
 
+# API добавления рецепта
 @app.route("/add_recipe", methods=['POST'])
 def add_recipe() -> tuple[wrappers.Response, int]:
     logger.info(f"Добавление рецепта в {add_recipe.__name__}")
 
     request_data: dict = request.get_json()
     login: str = request_data.get('login')
-    recipe: dict = request_data.get('recipe')
+    recipe: dict = request_data.get('recipe')  # состав рецепта смотреть в add_recipe_to_table
 
     response = add_recipe_to_table(login, recipe)
 
     return jsonify(response), 200
 
 
+# API получения всех рецептов пользователя
 @app.route("/get_users_recipes", methods=['POST'])
 def get_users_recipes() -> tuple[wrappers.Response, int]:
     logger.info(f"Получение всех рецептов пользователя в {get_users_recipes.__name__}")

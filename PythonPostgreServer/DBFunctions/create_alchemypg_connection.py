@@ -39,7 +39,7 @@ recipes_table = Table(
     Column("ingredients", ARRAY(String), nullable=False),
     Column("photo", String, nullable=True),
     Column("cooking_time", String, nullable=False),
-    Column("cooking_time_periods", JSONB, nullable=True),
+    Column("cooking_time_periods", JSONB, nullable=False),
     Column("author_login", String, nullable=False),
     Column("author_nick_name", String, nullable=False),
 )

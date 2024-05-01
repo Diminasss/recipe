@@ -39,7 +39,8 @@ def add_recipe_to_table(login: str, recipe: dict) -> dict:
         with engine.connect() as connection:
             nick_name, recipes = connection.execute(statement).first()
 
-        # Добавляем новый рецепт в таблицу рецептов
+        # Добавляем новый рецепт в таблицу рецептов (СОСТАВ РЕЦЕПТА ЗДЕСЬ, БОЛЕЕ ПОДРОБНЫЙ СОСТАВ ВЫ МОЖЕТЕ УВИДЕТЬ В
+        # ФАЙЛЕ create_alchemypg_connection.py)
         statement = insert(recipes_table).values(
             id=max_recipe_id,
             title=recipe['title'],
