@@ -4,6 +4,8 @@ from DBFunctions.users_alchemy_functions import (user_is_in_table, log_in, get_a
                                                  delete_user, user_initialisation, edit_sql_table)
 from DBFunctions.create_alchemypg_connection import users_table
 
+from DBFunctions.recipes_alchemy_functions import add_recipe_to_table
+
 app = Flask(__name__)
 logger = initialize_logger(__name__)
 
@@ -97,6 +99,41 @@ def add_birthday() -> tuple[wrappers.Response, int]:
 
     response = edit_sql_table(users_table, login, "date_of_birth", date_of_birth)
 
+    return jsonify(response), 200
+
+
+@app.route("/add_recipe", methods=['POST'])
+def add_recipe() -> tuple[wrappers.Response, int]:
+    logger.info(f"Добавление рецепта в {add_recipe.__name__}")
+
+    request_data: dict = request.get_json()
+    login: str = request_data.get('login')
+    recipe: dict = request_data.get('recipe')
+
+    response = add_recipe_to_table(login, recipe)
+
+    return jsonify(response), 200
+
+
+@app.route("/get_users_recipes", methods=['POST'])
+def get_users_recipes() -> tuple[wrappers.Response, int]:
+    logger.info(f"Получение всех рецептов пользователя в {get_users_recipes.__name__}")
+
+    request_data: dict = request.get_json()
+    login: str = request_data.get('login')
+
+    response = ''
+    return jsonify(response), 200
+
+
+@app.route("/get_one_recipe", methods=['POST'])
+def get_one_recipe() -> tuple[wrappers.Response, int]:
+    logger.info(f"Получение всех рецептов пользователя в {get_one_recipe.__name__}")
+
+    request_data: dict = request.get_json()
+    recipe_id: int = request_data.get('recipe_id')
+
+    response = ''
     return jsonify(response), 200
 
 
