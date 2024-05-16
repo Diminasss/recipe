@@ -17,27 +17,39 @@ import java.io.IOException
 class BD(val context: Context, val factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, "BD", factory, 1) {
 
+    // Создание всей БД
     override fun onCreate(db: SQLiteDatabase?) { // Создание нужной для нас таблицы
         // Оприсание SQL-команды
         val query = "CREATE TABLE users (id INT PRIMARY KEY, login TEXT, password TEXT, nick_name TEXT, date_of_birth TEXT)"
         db!!.execSQL(query) // Передаем переменную, преобразуя в SQL команду
         TODO("Not yet implemented")
     }
+
+    // Удаление и повторное создание БД (пересоздание БД)
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS users")
         onCreate(db)
         TODO("Not yet implemented")
     }
+    // Добавление нового пользователя
     fun addUsers(user: User){
         val values = ContentValues()
         values.put("login", user.login)
         values.put("password", user.password)
         values.put("nick_name", user.nick_name)
         values.put("date_of_birth", user.date_of_birth)
+
         val db = this.writableDatabase
         db.insert("users", null, values)
-
         db.close()
+    }
+
+    // Функция, отвечающая за нахождение пользователя в БД
+    fun getUser(login:String, password: String): Boolean {
+        val db = this.readableDatabase
+
+        val result = db.rawQuery("SELECT * FROM users WHERE login = '$login' AND password = '$password'", null)
+        return result.moveToFirst()
     }
 
 }
