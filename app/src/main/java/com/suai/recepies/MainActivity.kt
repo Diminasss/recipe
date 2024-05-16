@@ -33,37 +33,36 @@ class MainActivity : AppCompatActivity() {
             val login = user_login.text.toString().trim()
             val password = user_password.text.toString().trim()
 
-
             if (login == "" || password.isEmpty()) {  //login.contains('@')
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             } else if (password.length < 4) {
                 Toast.makeText(this, "Вы ввели пароль меньше 4 символов", Toast.LENGTH_LONG).show()
-            }
-            else {
-
+            } else {
                 // Взятие из БД созданного объекта
                 val db = BD(this, null)
                 val isAuth = db.getUser(login, password)
 
-                if (isAuth){
-                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG).show()
+                if (isAuth) {
+                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG)
+                        .show()
                     // Очищение полей
                     user_login.text.clear()
                     user_password.text.clear()
-                } else
-                    Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, Items::class.java)
+                    startActivity(intent)
 
+                } else
+                    Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG)
+                        .show()
             }
         }
-
+    }
+}
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
 //            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 //            insets
 //        }
-
-    }
-}
 
         // Привязываем обработчик нажатия кнопки "Вход"
 //        loginButton.setOnClickListener {
