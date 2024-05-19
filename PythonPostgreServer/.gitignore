@@ -108,4 +108,3 @@ cython_debug/
 .venv/
 .idea
 test_file.py
-DBFunctions/config.py

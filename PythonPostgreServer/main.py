@@ -49,7 +49,7 @@ def log_in_account() -> tuple[wrappers.Response, int]:
 
 
 # API удаления аккаунта
-@app.route("/delete_person", methods=['POST'])
+@app.route("/delete_person", methods=['POST'])  # Добавить удаление рецептов вместе с аккаунтом
 def delete_person() -> tuple[wrappers.Response, int]:
     """
     Ответ successfully deleted, not_person метод для удаления аккаунта
