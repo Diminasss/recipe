@@ -3,12 +3,14 @@ from sqlalchemy import Table, Column, Integer, String, ARRAY
 from sqlalchemy.dialects.postgresql import JSONB
 from DBFunctions.config import Config
 
-engine = create_engine(
-    url=Config.url,
-    echo=Config.echo,
-    pool_size=Config.pool_size,
-    max_overflow=Config.max_overflow
-)
+# engine = create_engine(
+#     url=Config.url,
+#     echo=Config.echo,
+#     pool_size=Config.pool_size,
+#     max_overflow=Config.max_overflow
+# )
+
+engine = create_engine(url=Config.url, echo=True)
 
 metadata_obj = MetaData()
 
