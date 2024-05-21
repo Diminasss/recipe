@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             val login = user_login.text.toString().trim()
             val password = user_password.text.toString().trim()
 
-            if (login == "" || password.isEmpty()) {  //login.contains('@')
+            if (login.isEmpty() || password.isEmpty()) {  //login.contains('@')
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             } else if (password.length < 4) {
                 Toast.makeText(this, "Вы ввели пароль меньше 4 символов", Toast.LENGTH_LONG).show()

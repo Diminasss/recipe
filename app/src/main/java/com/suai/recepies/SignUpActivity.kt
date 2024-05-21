@@ -33,7 +33,7 @@ class SignUpActivity : AppCompatActivity() {
             val nick_name = user_nick_name.text.toString().trim()
             val date_of_birth = user_date_of_birth.text.toString().trim()
 
-            if (login == "" || password == "" || nick_name == "" || date_of_birth == "") {  //login.contains('@')
+            if (login.isEmpty() || password.isEmpty() || nick_name.isEmpty() || date_of_birth.isEmpty()) {  //login.contains('@')
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             }
 
