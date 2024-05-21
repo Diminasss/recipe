@@ -17,17 +17,16 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.main_activity)
 
+        val linkToReg: TextView = findViewById(R.id.вРегистрация)
+        linkToReg.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
         val user_login: EditText = findViewById(R.id.login_signup)
         val user_password: EditText = findViewById(R.id.password_signup)
         val button: Button = findViewById(R.id.signin)
 
-        val linkToReg: TextView = findViewById(R.id.вРегистрация)
-
-        linkToReg.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
 
         button.setOnClickListener {
             val login = user_login.text.toString().trim()
@@ -48,25 +47,21 @@ class MainActivity : AppCompatActivity() {
                     // Очищение полей
                     user_login.text.clear()
                     user_password.text.clear()
-                    val intent = Intent(this, Items::class.java)
-                    startActivity(intent)
-
+//                    val intent = Intent(this, Items::class.java)
+//                    startActivity(intent)
                 } else
                     Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG)
                         .show()
+
             }
         }
     }
 }
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
 
-        // Привязываем обработчик нажатия кнопки "Вход"
+//        //Привязываем обработчик нажатия кнопки "Вход"
 //        loginButton.setOnClickListener {
 //            // Создаем Intent для перехода на другую активити
 //            val intent = Intent(this, SignUpActivity::class.java)
 //            startActivity(intent)
 //        }
+

@@ -16,6 +16,11 @@ class SignUpActivity : AppCompatActivity() {
 //        var sp = getSharedPreferences("PS", Context.MODE_PRIVATE) // Shered Preference
 //        //if (sp.getString("TY", "-9") != "-9")
 
+        val linkToAuth: TextView = findViewById(R.id.вВойти)
+        linkToAuth.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)}
+
         val user_login: EditText = findViewById(R.id.login_signup)
         val user_password: EditText = findViewById(R.id.password_signup)
         val user_nick_name: EditText = findViewById(R.id.nick_name)
@@ -26,19 +31,18 @@ class SignUpActivity : AppCompatActivity() {
             val login = user_login.text.toString().trim()
             val password = user_password.text.toString().trim()
             val nick_name = user_nick_name.text.toString().trim()
-            val date_of_birth = user_date_of_birth.toString().trim()
+            val date_of_birth = user_date_of_birth.text.toString().trim()
 
-            if (login == "" || password.isEmpty() || nick_name.isEmpty() || date_of_birth.isEmpty()) {  //login.contains('@')
+            if (login == "" || password == "" || nick_name == "" || date_of_birth == "") {  //login.contains('@')
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
-            } else if (password.length < 4) {
-                Toast.makeText(this, "Вы ввели пароль меньше 4 символов", Toast.LENGTH_LONG).show()
             }
-            else {
-                val user = User(login, password, nick_name, date_of_birth)
 
-                // Создание нового объекта
+            else {
+
+                val user = User(login, password, nick_name, date_of_birth)
+                // Создание нового объекта (система регистрации)
                 val db = BD(this, null)
-                db.addUsers(user)
+                db.addUser(user)
                 Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG).show()
 
                 // Очищение полей
@@ -47,13 +51,6 @@ class SignUpActivity : AppCompatActivity() {
                 user_nick_name.text.clear()
                 user_date_of_birth.text.clear()
             }
-        }
-
-        val linkToAuth: TextView = findViewById(R.id.вВойти)
-
-        linkToAuth.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 }
