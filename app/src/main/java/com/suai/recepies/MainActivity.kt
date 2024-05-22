@@ -36,24 +36,24 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             } else if (password.length < 4) {
                 Toast.makeText(this, "Вы ввели пароль меньше 4 символов", Toast.LENGTH_LONG).show()
-            } else {
+            } //else {
                 // Взятие из БД созданного объекта
-                val db = BD(this, null)
-                val isAuth = db.getUser(login, password)
+//                val db = BD(this, null)
+//                val isAuth = db.getUser(login, password)
 
-                if (isAuth) {
-                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG)
-                        .show()
-                    // Очищение полей
-                    user_login.text.clear()
-                    user_password.text.clear()
-//                    val intent = Intent(this, Items::class.java)
-//                    startActivity(intent)
-                } else
-                    Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG)
-                        .show()
-
-            }
+//                if (isAuth) {
+//                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG)
+//                        .show()
+//                    // Очищение полей
+//                    user_login.text.clear()
+//                    user_password.text.clear()
+////                    val intent = Intent(this, Items::class.java)
+////                    startActivity(intent)
+//                } else
+//                    Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG)
+//                        .show()
+//
+//            }
         }
     }
 }

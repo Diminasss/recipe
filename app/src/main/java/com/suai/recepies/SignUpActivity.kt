@@ -2,6 +2,7 @@ package com.suai.recepies
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -20,7 +21,8 @@ class SignUpActivity : AppCompatActivity() {
         val linkToAuth: TextView = findViewById(R.id.вВойти)
         linkToAuth.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)}
+            startActivity(intent)
+        }
 
         val userLogin: EditText = findViewById(R.id.login_signup)
         val userPassword: EditText = findViewById(R.id.password_signup)
@@ -39,13 +41,18 @@ class SignUpActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             }
-
             else {
 
-                val user = User(login, password, nickName, dateOfBirth)
-                // Создание нового объекта (система регистрации)
-                val db = BD(this, null)
-                db.addUser(user)
+                val registrationSession = Registration()
+                val responsus = registrationSession.register(login=login, password=password, nickname = nickName, dateOfBirth = dateOfBirth)
+                println(responsus)
+
+
+
+
+
+
+
                 Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG).show()
 
                 // Очищение полей
@@ -53,6 +60,10 @@ class SignUpActivity : AppCompatActivity() {
                 userPassword.text.clear()
                 userNickName.text.clear()
                 userDateOfBirth.text.clear()
+//              val user = User(login, password, nickName, dateOfBirth)
+//                // Создание нового объекта (система регистрации)
+//              val db = BD(this, null)
+//              db.addUser(user)
             }
         }
     }
