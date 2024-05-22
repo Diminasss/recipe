@@ -44,8 +44,12 @@ class SignUpActivity : AppCompatActivity() {
             else {
 
                 val registrationSession = Registration()
-                val responsus = registrationSession.register(login=login, password=password, nickname = nickName, dateOfBirth = dateOfBirth)
-                println(responsus)
+                Thread{
+                    val responsus = registrationSession.register(login=login, password=password, nickname = nickName, dateOfBirth = dateOfBirth)
+                    println(responsus)
+                }.start()
+
+
 
 
 
@@ -60,7 +64,7 @@ class SignUpActivity : AppCompatActivity() {
                 userPassword.text.clear()
                 userNickName.text.clear()
                 userDateOfBirth.text.clear()
-//              val user = User(login, password, nickName, dateOfBirth)
+                    //                val user = User(login, password, nickName, dateOfBirth)
 //                // Создание нового объекта (система регистрации)
 //              val db = BD(this, null)
 //              db.addUser(user)
