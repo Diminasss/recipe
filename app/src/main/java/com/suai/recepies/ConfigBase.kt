@@ -10,64 +10,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okio.IOException
 
-
-
-//import okhttp3.*
-//import okhttp3.MediaType.Companion.toMediaType
-//import okhttp3.RequestBody.Companion.toRequestBody
-//import org.json.JSONObject
-//import java.io.IOException
-
-//class Registration {
-//
-//    private val serverHTTP: String = "http://127.0.0.1:5000/test"
-//
-//    fun register(login: String, password: String, nickname: String, dateOfBirth: String): String? {
-//        val client = OkHttpClient()
-//        println("Создан клиент")
-//
-//        // Создание JSON объекта
-//        val jsonObject = JSONObject()
-//            .put("login", login)
-//            .put("password", password)
-//            .put("nickname", nickname)
-//            .put("dateOfBirth", dateOfBirth)
-//
-//        val json = JSONObject.quote(jsonObject.toString())
-//
-//        println("Создан json: $jsonObject")
-//
-//        // Создание тела запроса
-//        val body = json.toRequestBody("application/json; charset=utf-8".toMediaType())
-//
-//        // Создание запроса
-//        val request = Request.Builder().url(serverHTTP).post(body).build()
-//
-//        println("Создан запрос")
-//
-//        var responseString: String? = null
-//
-//        // Выполнение запроса
-//        try {
-//            val response = client.newCall(request).execute()
-//            println("Запрос выполнен")
-//            if (!response.isSuccessful) {
-//                println("Ошибка ответа: ${response.code}")
-//                throw IOException("Unexpected code $response")
-//            }
-//            responseString = response.body?.string()
-//            println("Получен ответ: $responseString")
-//        } catch (e: Exception) {
-//            println("Ошибка при выполнении запроса: ${e.message}")
-//            e.printStackTrace()
-//        }
-//
-//        println("Запрос окончен")
-//        return responseString
-//    }
-//}
-
-const val serverHTTP: String = "http://127.0.0.1:5000/test"
+const val serverHTTP: String = "http://10.0.2.2:5000/test"
 
 @WorkerThread
 suspend fun register(login: String, password: String, nickname: String, dateOfBirth: String) {
@@ -78,11 +21,13 @@ suspend fun register(login: String, password: String, nickname: String, dateOfBi
     val adapter = moshi.adapter(Map::class.java)
     println("Создан словарь, моши и адаптор $dictionary")
 
+
     // Получение полноценного JSON и метаданных к нему
     val jsonRequest = adapter.toJson(dictionary)
     val JSON = "application/json; charset=utf-8".toMediaType()
     println("Словарь переведён в JSON $jsonRequest")
     println("Созданы метаданные JSON $JSON")
+
 
     // Создание клиента и формирование запроса
     val client = OkHttpClient()
@@ -91,6 +36,7 @@ suspend fun register(login: String, password: String, nickname: String, dateOfBi
     println("Созданл тело запроса")
     val request = Request.Builder().url(serverHTTP).post(body).build()
     println("Создан запрос")
+
 
     // Попытка проведения Post запроса
     try{
@@ -101,8 +47,11 @@ suspend fun register(login: String, password: String, nickname: String, dateOfBi
                 throw IOException("Запрос к серверу не был успешным")
             }
             println("Запрос прошёл успешно")
-            println(response.body!!.string())
+            val responseAdapter = moshi.adapter<Map<String, Any>>(Map::class.java)
+            val registerResponse = responseAdapter.fromJson(response.body!!.string())
+            println("Ответ успешно преобразован в словарь Kotlin $registerResponse")
         }
+
     }
     catch (e: Exception){
         println("Запрос пошёл по пизде")
