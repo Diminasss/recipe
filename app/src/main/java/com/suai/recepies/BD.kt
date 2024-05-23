@@ -4,6 +4,7 @@ package com.suai.recepies
 //import android.database.sqlite.SQLiteDatabase
 //import android.database.sqlite.SQLiteOpenHelper
 //
+//
 ////Добавление во внутреннюю БД
 //class BD(val context: Context, val factory: SQLiteDatabase.CursorFactory?) :
 //    SQLiteOpenHelper(context, "app", factory, 1) {
@@ -43,27 +44,27 @@ package com.suai.recepies
 //    }
 //
 //}
-////Создание Post-запроса
-//fun main() {
-//    val url = "http://127.0.0.1:5000/log_in"
-//    val json = "{login:Test}" // JSON тело запроса
+//////Создание Post-запроса
+////fun main() {
+////    val url = "http://127.0.0.1:5000/log_in"
+////    val json = "{login:Test}" // JSON тело запроса
+////
+////    val client = OkHttpClient()
+////
+////    val body = RequestBody.create(MediaType.parse("application/json"), json)
+////    val request = Request.Builder()
+////        .url(url)
+////        .post(body)
+////        .build()
+////
+////    client.newCall(request).enqueue(object : Callback {
+////        override fun onFailure(call: Call, e: IOException) {
+////            e.printStackTrace()
+////        }
+////
+////        override fun onResponse(call: Call, response: Response) {
+////            println(response.body()?.string())
+////        }
+////    })
+////}
 //
-//    val client = OkHttpClient()
-//
-//    val body = RequestBody.create(MediaType.parse("application/json"), json)
-//    val request = Request.Builder()
-//        .url(url)
-//        .post(body)
-//        .build()
-//
-//    client.newCall(request).enqueue(object : Callback {
-//        override fun onFailure(call: Call, e: IOException) {
-//            e.printStackTrace()
-//        }
-//
-//        override fun onResponse(call: Call, response: Response) {
-//            println(response.body()?.string())
-//        }
-//    })
-//}
-
