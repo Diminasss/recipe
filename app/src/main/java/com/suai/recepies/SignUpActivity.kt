@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 
@@ -45,32 +45,42 @@ class SignUpActivity : AppCompatActivity() {
 
             if (login.isEmpty() || password.isEmpty() || nickName.isEmpty() || dateOfBirth.isEmpty()) {
 
-                Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Все поля данной формы обязательны для заполнения", Toast.LENGTH_LONG).show()
             }
             else {
 
                 // Создаем корутину в блоке runBlocking
-                runBlocking {
+                val result = runBlocking {
                     // Запускаем корутину с помощью launch и передаем контекст Dispatchers.IO,
                     // чтобы выполнить операцию ввода-вывода (в вашем случае - сетевой запрос) в фоновом потоке
-                    launch(Dispatchers.IO) {
+                    val deferredResult = async(Dispatchers.IO) {
                         // Вызываем функцию register() в контексте корутины
-                        val result = register(login=login, password=password, nickname=nickName, dateOfBirth=dateOfBirth)
-                        println(result)
+                        register(login=login, password=password, nickname=nickName, dateOfBirth=dateOfBirth)
+
+                    }
+                    deferredResult.await()
+                }
+                if (result != null){
+                    if (result["result"] == "successfully") {
+                        Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else if(result["result"] == "user_is_already_registered"){
+                        Toast.makeText(this, "Пользователь $login уже существует", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else if(result["result"] == "data_base_error"){
+                        Toast.makeText(this, "Ошибка базы данных", Toast.LENGTH_LONG).show()
+                    }
+                    else if(result["result"] == "login_password_and_nick_name_are_necessary"){
+                        Toast.makeText(this, "Все поля данной формы обязательны для заполнения", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
                     }
                 }
 
-
-
-
-
-
-
-
-
-
-
-                Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG).show()
 
                 // Очищение полей
                 userLogin.text.clear()

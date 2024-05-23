@@ -8,8 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,16 +21,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val user_login: EditText = findViewById(R.id.login_signup)
-        val user_password: EditText = findViewById(R.id.password_signup)
+        val userLogin: EditText = findViewById(R.id.login_signup)
+        val userPassword: EditText = findViewById(R.id.password_signup)
         val button: Button = findViewById(R.id.signin)
 
 
         button.setOnClickListener {
-            val login = user_login.text.toString().trim()
-            val password = user_password.text.toString().trim()
+            val login = userLogin.text.toString().trim()
+            val password = userPassword.text.toString().trim()
 
-            if (login.isEmpty() || password.isEmpty()) {  //login.contains('@')
+            if (login.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             } else if (password.length < 4) {
                 Toast.makeText(this, "Вы ввели пароль меньше 4 символов", Toast.LENGTH_LONG).show()

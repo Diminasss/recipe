@@ -10,10 +10,10 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okio.IOException
 
-const val serverHTTP: String = "http://10.0.2.2:5000/test"
+const val serverHTTP: String = "http://10.0.2.2:5000/register"
 
 @WorkerThread
-suspend fun register(login: String, password: String, nickname: String, dateOfBirth: String) {
+fun register(login: String, password: String, nickname: String, dateOfBirth: String): Map<String, Any>? {
 
     // Создание данных и сериализация
     val dictionary: Map<String, String> = mapOf("login" to login, "password" to password, "nick_name" to nickname, "date_of_birth" to dateOfBirth)
@@ -48,13 +48,15 @@ suspend fun register(login: String, password: String, nickname: String, dateOfBi
             }
             println("Запрос прошёл успешно")
             val responseAdapter = moshi.adapter<Map<String, Any>>(Map::class.java)
-            val registerResponse = responseAdapter.fromJson(response.body!!.string())
+            val registerResponse: Map<String, Any>? = responseAdapter.fromJson(response.body!!.string())
             println("Ответ успешно преобразован в словарь Kotlin $registerResponse")
+            return registerResponse
         }
 
     }
     catch (e: Exception){
-        println("Запрос пошёл по пизде")
+        println("Запрос пошёл по нн-ому месту")
         println("Произошла ошибка: $e")
+        return mapOf("result" to "Exception")
     }
 }
