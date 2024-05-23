@@ -32,9 +32,15 @@ class MainActivity : AppCompatActivity() {
 
             if (login.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
-            } else if (password.length < 4) {
+            }
+            else if (password.length < 4) {
                 Toast.makeText(this, "Вы ввели пароль меньше 4 символов", Toast.LENGTH_LONG).show()
-            } //else {
+            }
+            else{
+
+            }
+
+        //else {
                 // Взятие из БД созданного объекта
 //                val db = BD(this, null)
 //                val isAuth = db.getUser(login, password)
