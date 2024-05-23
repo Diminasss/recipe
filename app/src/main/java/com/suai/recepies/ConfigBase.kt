@@ -14,10 +14,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okio.IOException
 
 
-
-
-
-fun doPost(inDictionary: Map<String, Any>, inHTTP: String): Map<String, Any>? {
+fun doPost(mapToJSON: Map<String, Any>, inHTTP: String): Map<String, Any>? {
     @WorkerThread
     fun underFunction(dictionary: Map<String, Any>, http: String): Map<String, Any>? {
 
@@ -72,7 +69,7 @@ fun doPost(inDictionary: Map<String, Any>, inHTTP: String): Map<String, Any>? {
         // чтобы выполнить операцию ввода-вывода (в вашем случае - сетевой запрос) в фоновом потоке
         val deferredResult = async(Dispatchers.IO) {
             // Вызываем функцию register() в контексте корутины
-            underFunction(inDictionary, inHTTP)
+            underFunction(mapToJSON, inHTTP)
         }
         deferredResult.await()
     }
