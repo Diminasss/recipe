@@ -10,6 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
+
+
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +49,18 @@ class SignUpActivity : AppCompatActivity() {
             }
             else {
 
-                val registrationSession = Registration()
-                Thread{
-                    val responsus = registrationSession.register(login=login, password=password, nickname = nickName, dateOfBirth = dateOfBirth)
-                    println(responsus)
-                }.start()
+                // Создаем корутину в блоке runBlocking
+                runBlocking {
+                    // Запускаем корутину с помощью launch и передаем контекст Dispatchers.IO,
+                    // чтобы выполнить операцию ввода-вывода (в вашем случае - сетевой запрос) в фоновом потоке
+                    launch(Dispatchers.IO) {
+                        // Вызываем функцию register() в контексте корутины
+                        val result = register(login=login, password=password, nickname=nickName, dateOfBirth=dateOfBirth)
+                        println(result)
+                    }
+                }
+
+
 
 
 

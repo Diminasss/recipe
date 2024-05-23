@@ -10,6 +10,8 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okio.IOException
 
+
+
 //import okhttp3.*
 //import okhttp3.MediaType.Companion.toMediaType
 //import okhttp3.RequestBody.Companion.toRequestBody
@@ -65,37 +67,45 @@ import okio.IOException
 //    }
 //}
 
-class Registration{
-    private val serverHTTP: String = "http://127.0.0.1:5000/test"
+const val serverHTTP: String = "http://127.0.0.1:5000/test"
 
-    @WorkerThread
-    fun register(login: String, password: String, nickname: String, dateOfBirth: String) {
+@WorkerThread
+suspend fun register(login: String, password: String, nickname: String, dateOfBirth: String) {
 
-        // Создание данных и сериализация
-        val dictionary: Map<String, String> = mapOf("login" to login, "password" to password, "nick_name" to nickname, "date_of_birth" to dateOfBirth)
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        val adapter = moshi.adapter(Map::class.java)
+    // Создание данных и сериализация
+    val dictionary: Map<String, String> = mapOf("login" to login, "password" to password, "nick_name" to nickname, "date_of_birth" to dateOfBirth)
+    val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    val adapter = moshi.adapter(Map::class.java)
+    println("Создан словарь, моши и адаптор $dictionary")
 
-        // Получение полноценного JSON и метаданных к нему
-        val jsonRequest = adapter.toJson(dictionary)
-        val JSON = "application/json; charset=utf-8".toMediaType()
+    // Получение полноценного JSON и метаданных к нему
+    val jsonRequest = adapter.toJson(dictionary)
+    val JSON = "application/json; charset=utf-8".toMediaType()
+    println("Словарь переведён в JSON $jsonRequest")
+    println("Созданы метаданные JSON $JSON")
 
-        // Создание клиента и формирование запроса
-        val client = OkHttpClient()
-        val body: RequestBody = jsonRequest.toRequestBody(JSON)
-        val request = Request.Builder().url(serverHTTP).post(body).build()
+    // Создание клиента и формирование запроса
+    val client = OkHttpClient()
+    println("Создан клиент")
+    val body: RequestBody = jsonRequest.toRequestBody(JSON)
+    println("Созданл тело запроса")
+    val request = Request.Builder().url(serverHTTP).post(body).build()
+    println("Создан запрос")
 
-        // Попытка проведения Post запроса
-        try{
-            client.newCall(request).execute().use {response ->
-                if (!response.isSuccessful){
-                    throw IOException("Запрос к серверу не был успешным")
-                }
-                println(response.body!!.string())
+    // Попытка проведения Post запроса
+    try{
+        println("Выполнение запроса")
+        client.newCall(request).execute().use {response ->
+            if (!response.isSuccessful){
+
+                throw IOException("Запрос к серверу не был успешным")
             }
+            println("Запрос прошёл успешно")
+            println(response.body!!.string())
         }
-        catch (e: Exception){
-            println("Произошла ошибка: $e")
-        }
+    }
+    catch (e: Exception){
+        println("Запрос пошёл по пизде")
+        println("Произошла ошибка: $e")
     }
 }
