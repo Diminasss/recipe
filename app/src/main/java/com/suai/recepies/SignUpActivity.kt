@@ -17,9 +17,6 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-//
-//        var sp = getSharedPreferences("PS", Context.MODE_PRIVATE) // Shered Preference
-//        //if (sp.getString("TY", "-9") != "-9")
 
         val linkToAuth: TextView = findViewById(R.id.вВойти)
         linkToAuth.setOnClickListener {
@@ -69,16 +66,11 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
 
-
                 // Очищение полей
                 userLogin.text.clear()
                 userPassword.text.clear()
                 userNickName.text.clear()
                 userDateOfBirth.text.clear()
-                    //                val user = User(login, password, nickName, dateOfBirth)
-//                // Создание нового объекта (система регистрации)
-//              val db = BD(this, null)
-//              db.addUser(user)
             }
         }
     }
