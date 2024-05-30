@@ -42,6 +42,14 @@ class Items : AppCompatActivity() {
             val imageBitmap = BitmapFactory.decodeFile(imagePath)
             return imageBitmap
         }
+        fun getNameFromDatabase(imageName: String): String? {
+            val imagePath = imageDatabase[imageName]
+            if (imagePath == null) {
+                return null
+            }
+            return imageName
+        }
+
 
 
 

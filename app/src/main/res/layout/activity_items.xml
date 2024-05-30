@@ -30,10 +30,10 @@
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383"
+        app:layout_constraintVertical_bias="0.382"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
@@ -47,7 +47,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383" />
+        app:layout_constraintVertical_bias="0.383"
+        tools:srcCompat="@tools:sample/avatars"/>
 
     <ImageView
         android:id="@+id/image6"
@@ -68,6 +69,7 @@
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:textStyle="bold"
+        android:text="Рецепт 5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -77,18 +79,18 @@
 
     <TextView
         android:id="@+id/res4"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:text="Рецепт 4"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image1"
-        app:layout_constraintVertical_bias="0.462" />
+        app:layout_constraintVertical_bias="0.464" />
 
     <TextView
         android:id="@+id/res6"
@@ -96,6 +98,7 @@
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:textStyle="bold"
+        android:text="Рецепт 6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.854"
@@ -108,14 +111,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:text="Рецепт 1"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image1"
-        app:layout_constraintVertical_bias="0.004" />
+        app:layout_constraintVertical_bias="0.006" />
 
     <TextView
         android:id="@+id/chooserectext"
@@ -152,6 +156,7 @@
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:textStyle="bold"
+        android:text="Рецепт 2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -163,14 +168,15 @@
         android:id="@+id/res3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Рецепт 3"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintHorizontal_bias="0.916"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.019" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <ImageView
         android:id="@+id/image4"
