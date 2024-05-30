@@ -84,10 +84,9 @@
         android:id="@+id/сategoryRecepie"
         android:layout_width="256dp"
         android:layout_height="35dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="24sp"
         android:background="@drawable/edittext_border"
-        android:ems="10"
-        android:gravity="left|bottom"
+
         android:hint="Категория"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
