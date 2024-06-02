@@ -22,10 +22,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.173" />
-
+        app:layout_constraintVertical_bias="0.149" />
 
     <Button
         android:id="@+id/chooserec"
@@ -40,11 +40,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
+    <EditText
+        android:id="@+id/сategoryRecepie"
+        android:layout_width="256dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_border"
+
+        android:hint="Категория"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
     <Button
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="52dp"
         android:text="Добавить"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -53,23 +67,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/nameRecepie"
-        android:layout_width="256dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/edittext_border"
-        android:ems="10"
-        android:gravity="left|bottom"
-        android:hint="Введите название"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooserectext" />
-
-    <EditText
         android:id="@+id/description"
         android:layout_width="256dp"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
+
         android:layout_marginTop="24dp"
         android:background="@drawable/edittext_border"
         android:ems="10"
@@ -77,21 +78,34 @@
         android:hint="Описание"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameRecepie" />
 
     <EditText
-        android:id="@+id/сategoryRecepie"
+        android:id="@+id/nameRecepie"
         android:layout_width="256dp"
         android:layout_height="35dp"
-        android:layout_marginTop="24sp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edittext_border"
-
-        android:hint="Категория"
+        android:ems="10"
+        android:gravity="left|bottom"
+        android:hint="Введите название"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toBottomOf="@+id/addImageRec" />
+
+    <ImageView
+        android:id="@+id/addImageRec"
+        android:layout_width="121dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooserectext"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

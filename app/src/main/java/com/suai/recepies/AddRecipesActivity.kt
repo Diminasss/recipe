@@ -1,7 +1,9 @@
 package com.suai.recepies
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,12 +21,12 @@ class AddRecipesActivity : AppCompatActivity() {
             insets
         }
 
+        val nameRecipe: EditText = findViewById(R.id.nameRecepie)
+        val descriptionRecipe: EditText = findViewById(R.id.description)
+        val categoryRecipe: EditText = findViewById(R.id.сategoryRecepie)
+
         val button: Button = findViewById(R.id.add)
 
-
-        button.setOnClickListener {
-            Toast.makeText(this, "Рецепт добавлен", Toast.LENGTH_LONG).show()
-        }
     }
 }
 

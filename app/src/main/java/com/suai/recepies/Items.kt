@@ -28,38 +28,11 @@ class Items : AppCompatActivity() {
 
         }
 
-        // Создание БД для фото и названия рецептов в Items
-        val imageDatabase = mapOf(
-            "Image 1" to "res/drawable/lasania.jpeg",
-            "Image 2" to "/path/to/image2.jpg",
-            "Image 3" to "/path/to/image3.jpg"
-        )
-        fun getImageFromDatabase(imageName: String):Bitmap? {
-            val imagePath = imageDatabase[imageName]
-            if (imagePath == null) {
-                return null
-            }
-            val imageBitmap = BitmapFactory.decodeFile(imagePath)
-            return imageBitmap
-        }
-        fun getNameFromDatabase(imageName: String): String? {
-            val imagePath = imageDatabase[imageName]
-            if (imagePath == null) {
-                return null
-            }
-            return imageName
-        }
-
-
-
-
 
         val addResipesButton: Button = findViewById(R.id.addRecipe)
         addResipesButton.setOnClickListener {
             val intent = Intent(this, AddRecipesActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 }
