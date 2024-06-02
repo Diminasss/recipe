@@ -36,7 +36,7 @@ fun doPost(mapToJSON: Map<String, Any>, inHTTP: String): Map<String, Any>? {
         val client = OkHttpClient()
         println("Создан клиент")
         val body: RequestBody = jsonRequest.toRequestBody(JSON)
-        println("Созданл тело запроса")
+        println("Создано тело запроса")
         val request = Request.Builder().url(http).post(body).build()
         println("Создан запрос")
 

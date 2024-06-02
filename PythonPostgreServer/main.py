@@ -135,11 +135,11 @@ def get_users_recipes() -> tuple[wrappers.Response, int]:
 @app.route("/test", methods=['POST'])
 def test():
     request_data: dict = request.get_json()
-    test = request_data.get('test')
+    print(request_data)
+    test = int(request_data.get('test'))
     login = request_data.get('login')
-    print(test)
-    print(login)
-    return jsonify({"response": "OTVET"}), 200
+    test2 = int(request_data.get("test2"))
+    return jsonify({"login": login, "response": str(test+test2)}), 200
 
 
 if __name__ == "__main__":

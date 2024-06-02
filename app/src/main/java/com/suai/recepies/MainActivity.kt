@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
             else if (password.length < 4) {
                 Toast.makeText(this, "Вы ввели пароль меньше 4 символов", Toast.LENGTH_LONG).show()
             }
-
             else{
                 val dictionary: Map<String, String> = mapOf("login" to login, "password" to password)
                 val logInHTTP = "http://10.0.2.2:5000/log_in"
@@ -48,10 +47,10 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     else if (result["result"] == "invalid_password"){
-                        Toast.makeText(this, "Вход НЕ выполнен (не подходит пароль)", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Неверный пароль", Toast.LENGTH_LONG).show()
                     }
                     else if (result["result"] == "no_user"){
-                        Toast.makeText(this, "Вход НЕ выполнен (нет/не подходит имени(-я) пользователя)", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Такого пользователя не существует", Toast.LENGTH_LONG).show()
                     }
                 }
                 Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_LONG).show()
