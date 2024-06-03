@@ -46,7 +46,6 @@
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edittext_border"
-
         android:hint="Категория"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"

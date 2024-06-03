@@ -26,13 +26,13 @@
             android:exported="false"
             android:label="@string/title_activity_add_recipes" />
         <activity
-            android:name=".Items"
+            android:name=".MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LogInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

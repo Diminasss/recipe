@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#92DEE853"
-    tools:context=".Items">
+    tools:context=".MenuActivity">
 
 
     <ImageView

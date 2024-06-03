@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val linkToReg: TextView = findViewById(R.id.вРегистрация)
         linkToReg.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
+            val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
         }
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 if (result != null){
                     if (result["result"] == "successfully"){
                         Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, Items::class.java)
+                        val intent = Intent(this, MenuActivity::class.java)
                         startActivity(intent)
                     }
                     else if (result["result"] == "invalid_password"){
@@ -56,25 +56,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_LONG).show()
                 println(result)
             }
-
-        //else {
-                // Взятие из БД созданного объекта
-//                val db = BD(this, null)
-//                val isAuth = db.getUser(login, password)
-
-//                if (isAuth) {
-//                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG)
-//                        .show()
-//                    // Очищение полей
-//                    user_login.text.clear()
-//                    user_password.text.clear()
-////                    val intent = Intent(this, Items::class.java)
-////                    startActivity(intent)
-//                } else
-//                    Toast.makeText(this, "Пользователь $login НЕ авторизован", Toast.LENGTH_LONG)
-//                        .show()
-//
-//            }
         }
     }
 }
