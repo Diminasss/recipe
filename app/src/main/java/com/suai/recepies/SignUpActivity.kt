@@ -20,7 +20,7 @@ class SignUpActivity : AppCompatActivity() {
 
         val linkToAuth: TextView = findViewById(R.id.вВойти)
         linkToAuth.setOnClickListener {
-            val intent = Intent(this, LogInActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
@@ -48,12 +48,12 @@ class SignUpActivity : AppCompatActivity() {
                 if (result != null){
                     if (result["result"] == "successfully") {
                         Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, LogInActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
                     else if(result["result"] == "user_is_already_registered"){
                         Toast.makeText(this, "Пользователь $login уже существует", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, LogInActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
                     else if(result["result"] == "data_base_error"){
@@ -61,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
                     else if(result["result"] == "login_password_and_nick_name_are_necessary"){
                         Toast.makeText(this, "Все поля данной формы обязательны для заполнения", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, LogInActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
                 }
