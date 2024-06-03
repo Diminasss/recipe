@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
+
 class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +21,6 @@ class LogInActivity : AppCompatActivity() {
             val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
         }
-
         val userLogin: EditText = findViewById(R.id.login_signup)
         val userPassword: EditText = findViewById(R.id.password_signup)
         val button: Button = findViewById(R.id.signin)
@@ -44,6 +44,12 @@ class LogInActivity : AppCompatActivity() {
                     if (result["result"] == "successfully"){
                         Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, MenuActivity::class.java)
+
+
+                        val dbHelper = BD(this, null)
+                        dbHelper.onCreate(dbHelper.writableDatabase)
+                        dbHelper.addUser(login = login, password = password, nickname = result["nick_name"].toString(), dateOfBirth = result["date_of_birth"].toString(), recipesOwner = result["recipes_owner"].toString())
+
                         startActivity(intent)
                     }
                     else if (result["result"] == "invalid_password"){
@@ -59,11 +65,3 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 }
-
-//        //Привязываем обработчик нажатия кнопки "Вход"
-//        loginButton.setOnClickListener {
-//            // Создаем Intent для перехода на другую активити
-//            val intent = Intent(this, SignUpActivity::class.java)
-//            startActivity(intent)
-//        }
-
