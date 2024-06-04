@@ -14,6 +14,7 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        //Проверка пользователя в базе данных
         setContentView(R.layout.main_activity)
 
         val linkToReg: TextView = findViewById(R.id.вРегистрация)
@@ -46,9 +47,8 @@ class LogInActivity : AppCompatActivity() {
                         val intent = Intent(this, MenuActivity::class.java)
 
 
-                        val dbHelper = BD(this, null)
-                        dbHelper.onCreate(dbHelper.writableDatabase)
-                        dbHelper.addUser(login = login, password = password, nickname = result["nick_name"].toString(), dateOfBirth = result["date_of_birth"].toString(), recipesOwner = result["recipes_owner"].toString())
+
+                            // Запись пользователя в базу данных
 
                         startActivity(intent)
                     }
