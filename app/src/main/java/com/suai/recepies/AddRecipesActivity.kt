@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import org.json.JSONObject
 
 class AddRecipesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,7 @@ class AddRecipesActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.add)
         button.setOnClickListener {
+
             val image = imageRecipe.toString()
             val recipe = nameRecipe.text.toString()
             val description = descriptionRecipe.text.toString()
@@ -38,7 +40,13 @@ class AddRecipesActivity : AppCompatActivity() {
             }
             else {
                 val addRecipeHTTP: String = "http://10.0.2.2:5000/add_recipe"
-                val dictionary: Map<String, String> = mapOf("image" to image, "recipe" to recipe, "description" to description, "category" to category)
+                val dictionary: Map<String, String> = mapOf(
+                    "image" to image,
+                    "recipe" to recipe,
+                    "description" to description,
+                    "category" to category
+                )
+
                 val result = doPost(dictionary, addRecipeHTTP)
 
                 if (result != null){

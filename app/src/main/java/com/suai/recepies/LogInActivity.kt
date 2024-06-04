@@ -15,7 +15,7 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         //Проверка пользователя в базе данных
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.activity_login)
 
         val linkToReg: TextView = findViewById(R.id.вРегистрация)
         linkToReg.setOnClickListener {

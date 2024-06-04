@@ -193,10 +193,10 @@
 
 
     <Button
-        android:id="@+id/chooserec"
+        android:id="@+id/myrecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Избранные рецепты"
+        android:text="Мои рецепты"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -220,20 +220,7 @@
         app:layout_constraintTop_toBottomOf="@+id/res5"
         app:layout_constraintVertical_bias="0.421" />
 
-    <SearchView
-        android:id="@+id/searchRecipe"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="35dp"
-        android:background="@drawable/edittext_border"
-        android:contextClickable="false"
-        android:hint="Поиск рецепта"
-        app:layout_constraintBottom_toTopOf="@+id/image2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooserectext"
-        app:layout_constraintVertical_bias="0.583" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
