@@ -23,22 +23,41 @@ class DatabaseManager(context: Context) {
         db?.insert(MyBDNameClass.TABLE_NAME, null, values)
     }
     @SuppressLint("Range")
-    fun getUserFromDB(): ArrayList<String>{
-        val dataList = ArrayList<String>()
+    fun getUserLoginAndPasswordFromDB(): Map<String, Any> {
+        var dataMap: Map<String, Any> = emptyMap() // Инициализация пустым словарем
         val cursor = db?.query(MyBDNameClass.TABLE_NAME, null, null, null, null, null, null)
 
-        with(cursor){
-            while (cursor?.moveToNext()!!){
-                val dataText = cursor.getString(cursor.getColumnIndex(MyBDNameClass.COLUMN_NAME_LOGIN))
-                dataList.add(dataText.toString())
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val loginFromTable = it.getString(it.getColumnIndex(MyBDNameClass.COLUMN_NAME_LOGIN))
+                val passwordFromTable = it.getString(it.getColumnIndex(MyBDNameClass.COLUMN_NAME_PASSWORD))
+                dataMap = mapOf(
+                    "login" to loginFromTable,
+                    "password" to passwordFromTable
+                )
+            }
+        }
+        return dataMap
+    }
+
+    fun userIsInTable(): Boolean {
+        var result = false
+        val cursor = db?.query(MyBDNameClass.TABLE_NAME, null, null, null, null, null, null)
+
+        with(cursor) {
+            if (cursor?.moveToFirst() == true) {
+                result = true
             }
         }
         cursor?.close()
-
-        return dataList
+        return result
     }
 
     fun closeDB(){
         myDBHelper.close()
+    }
+
+    fun dropTable() {
+        db?.execSQL(MyBDNameClass.DELETE_TABLE)
     }
 }
