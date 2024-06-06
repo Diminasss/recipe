@@ -60,4 +60,8 @@ class DatabaseManager(context: Context) {
     fun dropTable() {
         db?.execSQL(MyBDNameClass.DELETE_TABLE)
     }
+
+    fun onUpgrade(){
+        myDBHelper.onUpgrade(db, 1, 1)
+    }
 }
