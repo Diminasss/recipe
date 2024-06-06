@@ -17,14 +17,12 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-
-
-
         databaseManager.openDB()
-
         if (databaseManager.userIsInTable()) {
             println("Пользователь уже в таблице")
+
             val dictionaryFromDB = databaseManager.getUserLoginAndPasswordFromDB()
+
             println(dictionaryFromDB)
             val logInHTTP = "http://10.0.2.2:5000/log_in"
             val result = doPost(dictionaryFromDB, logInHTTP)

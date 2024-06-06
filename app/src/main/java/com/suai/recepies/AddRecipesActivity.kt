@@ -2,15 +2,16 @@ package com.suai.recepies
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Scroller
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import org.json.JSONObject
 
 class AddRecipesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +25,11 @@ class AddRecipesActivity : AppCompatActivity() {
         }
         val imageRecipe: ImageView = findViewById(R.id.addImageRec)
         val nameRecipe: EditText = findViewById(R.id.nameRecepie)
-        val descriptionRecipe: EditText = findViewById(R.id.description)
         val categoryRecipe: EditText = findViewById(R.id.сategoryRecepie)
+        val descriptionRecipe: EditText = findViewById(R.id.description)
+        descriptionRecipe.setScroller(Scroller(this))
+        descriptionRecipe.isVerticalScrollBarEnabled = true
+        descriptionRecipe.movementMethod = ScrollingMovementMethod()
 
         val button: Button = findViewById(R.id.add)
         button.setOnClickListener {
