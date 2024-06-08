@@ -3,9 +3,12 @@ package com.suai.recepies
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Base64
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -19,10 +22,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.io.ByteArrayOutputStream
 
 class AddRecipesActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
+    private var imageBase64: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +57,7 @@ class AddRecipesActivity : AppCompatActivity() {
             if (uri != null) {
                 imageUri = uri
                 recipePhoto.setImageURI(uri)
+                imageBase64 = convertImageViewToBase64(recipePhoto)
             }
         }
 
@@ -59,18 +65,18 @@ class AddRecipesActivity : AppCompatActivity() {
             pickImageLauncher.launch("image/*")
         }
 
-        val button: Button = findViewById(R.id.add)
-        button.setOnClickListener {
+        val addButton: Button = findViewById(R.id.add)
+        addButton.setOnClickListener {
             val title = recipeTitle.text.toString()
             val description = recipeDescription.text.toString()
             val category = recipeCategory.text.toString()
 
-            if (imageUri == null || title.isEmpty() || description.isEmpty() || category.isEmpty()) {
+            if (imageBase64 == null || title.isEmpty() || description.isEmpty() || category.isEmpty()) {
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             } else {
                 val addRecipeHTTP = "http://10.0.2.2:5000/add_recipe"
                 val recipe: Map<String, String> = mapOf(
-                    "photo" to imageUri.toString(),
+                    "photo" to imageBase64!!, // Сохранение base64 строки
                     "title" to title,
                     "description" to description,
                     "category" to category
@@ -95,5 +101,14 @@ class AddRecipesActivity : AppCompatActivity() {
                 recipeCategory.text.clear()
             }
         }
+    }
+
+    // Функция для конвертации ImageView в base64 строку
+    private fun convertImageViewToBase64(imageView: ImageView): String {
+        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 }
