@@ -9,6 +9,23 @@
     android:background="#92DEE853"
     tools:context=".MyRecipesActivity">
 
+    <TextView
+        android:id="@+id/chooserectext"
+        style="@android:style/Widget.Material.TextView.SpinnerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Мои блюда"
+        android:textColor="#6750A3"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" />
+
     <ImageView
         android:id="@+id/image2"
         android:layout_width="wrap_content"
@@ -18,9 +35,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383"
+        app:layout_constraintTop_toBottomOf="@+id/chooserectext"
+        app:layout_constraintVertical_bias="0.12"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/res2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Рецепт 2"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/image2"
+        app:layout_constraintStart_toStartOf="@id/image2"
+        app:layout_constraintTop_toBottomOf="@id/image2" />
+
+    <ImageView
+        android:id="@+id/image6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/image5"
+        app:layout_constraintTop_toBottomOf="@+id/image3"
+        app:layout_constraintVertical_bias="0.191"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/res3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Рецепт 3"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/image3"
+        app:layout_constraintStart_toStartOf="@id/image3"
+        app:layout_constraintTop_toBottomOf="@id/image3" />
 
     <ImageView
         android:id="@+id/image3"
@@ -30,51 +84,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382"
+        app:layout_constraintStart_toEndOf="@+id/image2"
+        app:layout_constraintTop_toBottomOf="@+id/chooserectext"
+        app:layout_constraintVertical_bias="0.12"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/image1"
-        android:layout_width="129dp"
-        android:layout_height="131dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383"
-        tools:srcCompat="@tools:sample/avatars"/>
-
-    <ImageView
-        android:id="@+id/image6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.996"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/res5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:text="Рецепт 5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.472" />
 
     <TextView
         android:id="@+id/res4"
@@ -82,59 +95,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Рецепт 4"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image1"
-        app:layout_constraintVertical_bias="0.464" />
+        app:layout_constraintEnd_toEndOf="@id/image4"
+        app:layout_constraintStart_toStartOf="@id/image4"
+        app:layout_constraintTop_toBottomOf="@id/image4" />
 
     <TextView
         android:id="@+id/res6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:text="Рецепт 6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.47" />
-
-    <TextView
-        android:id="@+id/res1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Рецепт 1"
-        android:textSize="18dp"
+        android:text="Рецепт 6"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image1"
-        app:layout_constraintVertical_bias="0.006" />
-
-    <TextView
-        android:id="@+id/chooserectext"
-        style="@android:style/Widget.Material.TextView.SpinnerItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Мои рецепты"
-        android:textColor="#6750A3"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156" />
+        app:layout_constraintEnd_toEndOf="@id/image6"
+        app:layout_constraintStart_toStartOf="@id/image6"
+        app:layout_constraintTop_toBottomOf="@id/image6" />
 
     <ImageView
         android:id="@+id/image5"
@@ -145,37 +122,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646"
+        app:layout_constraintTop_toBottomOf="@+id/image2"
+        app:layout_constraintVertical_bias="0.191"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/res2"
+        android:id="@+id/res1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
+        android:layout_marginTop="4dp"
+        android:text="Рецепт 1"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Рецепт 2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.019" />
-
-    <TextView
-        android:id="@+id/res3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Рецепт 3"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.916"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image2"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintEnd_toEndOf="@id/image1"
+        app:layout_constraintStart_toStartOf="@id/image1"
+        app:layout_constraintTop_toBottomOf="@id/image1" />
 
     <ImageView
         android:id="@+id/image4"
@@ -183,12 +144,38 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646"
+        app:layout_constraintTop_toBottomOf="@+id/image1"
+        app:layout_constraintVertical_bias="0.191"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooserectext"
+        app:layout_constraintVertical_bias="0.12"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/res5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Рецепт 5"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/image5"
+        app:layout_constraintStart_toStartOf="@id/image5"
+        app:layout_constraintTop_toBottomOf="@id/image5" />
+
 
 
     <Button
@@ -204,7 +191,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/res5"
-        app:layout_constraintVertical_bias="0.421" />
+        app:layout_constraintVertical_bias="0.492" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
