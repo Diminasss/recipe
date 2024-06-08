@@ -1,6 +1,5 @@
-from sqlalchemy import create_engine, MetaData, func
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Table, Column, Integer, String, ARRAY
-from sqlalchemy.dialects.postgresql import JSONB
 from DBFunctions.config import Config
 
 engine = create_engine(
@@ -37,10 +36,7 @@ recipes_table = Table(
     Column("title", String, nullable=False),
     Column("description", String, nullable=False),
     Column("category", String, nullable=False),
-    Column("ingredients", ARRAY(String), nullable=False),
     Column("photo", String, nullable=True),
-    Column("cooking_time", String, nullable=False),
-    Column("cooking_time_periods", JSONB, nullable=False),
     Column("author_login", String, nullable=False),
     Column("author_nick_name", String, nullable=False),
 )

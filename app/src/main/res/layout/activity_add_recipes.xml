@@ -1,112 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddRecipesActivity"
-    android:orientation="vertical"
-    android:background="#92DEE853">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".AddRecipesActivity"
+android:background="#92DEE853">
 
+<TextView
+    android:id="@+id/chooserectext"
+    style="@android:style/Widget.Material.TextView.SpinnerItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Добавление рецепта"
+    android:textColor="#6750A3"
+    android:textSize="30dp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.494"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.149" />
 
-    <TextView
-        android:id="@+id/chooserectext"
-        style="@android:style/Widget.Material.TextView.SpinnerItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Добавление рецепта"
-        android:textColor="#6750A3"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.149" />
+<Button
+    android:id="@+id/myrecipes"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Список"
+    android:textSize="18dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.946"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.023" />
 
-    <Button
-        android:id="@+id/myrecipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Список"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.946"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+<EditText
+    android:id="@+id/сategoryRecepie"
+    android:layout_width="256dp"
+    android:layout_height="35dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/edittext_border"
+    android:hint="Категория"
+    android:inputType="text"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.496"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/description" />
 
-    <EditText
-        android:id="@+id/сategoryRecepie"
-        android:layout_width="256dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_border"
-        android:hint="Категория"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+<Button
+    android:id="@+id/add"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="52dp"
+    android:text="Добавить"
+    android:textAlignment="center"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:text="Добавить"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+<EditText
+    android:id="@+id/description"
+    android:layout_width="256dp"
+    android:layout_height="180dp"
+    android:layout_marginTop="24dp"
+    android:background="@drawable/edittext_border"
+    android:ems="10"
+    android:gravity="start|top"
+    android:hint="Описание"
+    android:inputType="textMultiLine"
+    android:scrollbars="vertical"
+    android:overScrollMode="always"
+    android:scrollHorizontally="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.496"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/nameRecepie" />
 
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="256dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edittext_border"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Описание"
-        android:inputType="textMultiLine"
-        android:scrollbars="vertical"
-        android:overScrollMode="always"
-        android:scrollHorizontally="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameRecepie" />
+<EditText
+    android:id="@+id/nameRecepie"
+    android:layout_width="256dp"
+    android:layout_height="35dp"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/edittext_border"
+    android:ems="10"
+    android:gravity="left|bottom"
+    android:hint="Введите название"
+    android:inputType="text"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.496"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/addImageRec" />
 
-    <EditText
-        android:id="@+id/nameRecepie"
-        android:layout_width="256dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edittext_border"
-        android:ems="10"
-        android:gravity="left|bottom"
-        android:hint="Введите название"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addImageRec" />
-
-    <ImageView
-        android:id="@+id/addImageRec"
-        android:layout_width="121dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooserectext"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
-
-
+<ImageView
+    android:id="@+id/addImageRec"
+    android:layout_width="121dp"
+    android:layout_height="100dp"
+    android:layout_marginTop="20dp"
+    android:scaleType="centerCrop"
+    android:contentDescription="Добавить изображение"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/chooserectext"
+    app:srcCompat="@android:drawable/ic_menu_gallery" />
 </androidx.constraintlayout.widget.ConstraintLayout>
