@@ -40,6 +40,19 @@ class DatabaseManager(context: Context) {
         return dataMap
     }
 
+    @SuppressLint("Range")
+    fun getLoginFromDB(): String {
+        var loginFromTable = ""
+        val cursor = db?.query(MyBDNameClass.TABLE_NAME, null, null, null, null, null, null)
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                loginFromTable = it.getString(it.getColumnIndex(MyBDNameClass.COLUMN_NAME_LOGIN))
+            }
+        }
+        return loginFromTable
+    }
+
     fun userIsInTable(): Boolean {
         var result = false
         val cursor = db?.query(MyBDNameClass.TABLE_NAME, null, null, null, null, null, null)

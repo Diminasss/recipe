@@ -70,6 +70,7 @@ class AddRecipesActivity : AppCompatActivity() {
             val title = recipeTitle.text.toString()
             val description = recipeDescription.text.toString()
             val category = recipeCategory.text.toString()
+            val databaseManager = DatabaseManager(this)
 
             if (imageBase64 == null || title.isEmpty() || description.isEmpty() || category.isEmpty()) {
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
@@ -81,8 +82,11 @@ class AddRecipesActivity : AppCompatActivity() {
                     "description" to description,
                     "category" to category
                 )
+                databaseManager.openDB()
+                val login: String = databaseManager.getLoginFromDB()
+                databaseManager.closeDB()
                 val mapp = mutableMapOf(
-                    "login" to "login",
+                    "login" to login,
                     "recipe" to recipe
                 )
                 val result = doPost(mapp, addRecipeHTTP)
