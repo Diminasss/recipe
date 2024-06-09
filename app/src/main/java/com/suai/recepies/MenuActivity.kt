@@ -1,5 +1,6 @@
 package com.suai.recepies
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -22,7 +23,7 @@ class MenuActivity : AppCompatActivity() {
 
         }
 
-        val addRecipesButton: Button = findViewById(R.id.addRecipe)
+        val addRecipesButton: Button = findViewById(R.id.nextRecipeList)
         addRecipesButton.setOnClickListener {
             val intent = Intent(this, AddRecipesActivity::class.java)
             startActivity(intent)

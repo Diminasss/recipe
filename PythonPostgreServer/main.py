@@ -131,15 +131,9 @@ def get_users_recipes() -> tuple[wrappers.Response, int]:
     response = get_all_recipes_from_user(login)
     return jsonify(response), 200
 
-
-@app.route("/test", methods=['POST'])
-def test():
-    request_data: dict = request.get_json()
-    print(request_data)
-    test = int(request_data.get('test'))
-    login = request_data.get('login')
-    test2 = int(request_data.get("test2"))
-    return jsonify({"login": login, "response": str(test+test2)}), 200
+@app.route("/get_six_random_recipes", methods=['POST'])
+def get_six_random_recipes() -> tuple[wrappers.Response, int]:
+    logger.info(f"Получение 6 случайных рецептов в {get_users_recipes.__name__}")
 
 
 if __name__ == "__main__":

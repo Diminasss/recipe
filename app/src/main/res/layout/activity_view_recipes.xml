@@ -85,7 +85,7 @@
         app:layout_constraintVertical_bias="0.362" />
 
     <Button
-        android:id="@+id/addRecipe"
+        android:id="@+id/nextRecipeList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
