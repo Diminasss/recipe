@@ -91,3 +91,20 @@ def get_all_recipes_from_user(login: str) -> dict:
             return {"result": result_dicts}
     else:
         return {"result": "user_is_not_in_table"}
+
+
+def get_six_random_recipes_from_table() -> dict[str, str] | dict[str, list[dict[str, str]]]:
+    statement = select(recipes_table).order_by(func.random()).limit(6)
+    with engine.connect() as connection:
+        result = connection.execute(statement)
+        rows = result.fetchall()
+        columns = result.keys()
+    if len(rows) == 0:
+        return {"result": "recipe_is_not_in_table"}
+    else:
+        result_dicts = [dict(zip(columns, row)) for row in rows]
+
+        return {"result": result_dicts}
+
+
+get_six_random_recipes_from_table()

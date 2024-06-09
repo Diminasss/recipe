@@ -65,3 +65,44 @@ fun doPost(mapToJSON: Map<String, Any>, inHTTP: String): Map<String, Any>? {
     }
     return result
 }
+
+fun doGet(inHTTP: String): Map<String, Any>? {
+    @WorkerThread
+    fun underFunction(http: String): Map<String, Any>? {
+        // Создание клиента и формирование запроса
+        val client = OkHttpClient()
+        val request = Request.Builder().url(http).build()
+
+        // Попытка проведения GET запроса
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    throw IOException("Запрос к серверу не был успешным")
+                }
+
+                val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+                val responseAdapter = moshi.adapter<Map<String, Any>>(Map::class.java)
+                val responseBody = response.body?.string()
+                val resultResponse: Map<String, Any>? =
+                    responseBody?.let { responseAdapter.fromJson(it) }
+                return resultResponse
+            }
+        } catch (e: Exception) {
+            println("Запрос пошёл по нн-ому месту")
+            println("Произошла ошибка: $e")
+            return mapOf("result" to "Exception")
+        }
+    }
+
+    // Создаем корутину в блоке runBlocking
+    val result = runBlocking {
+        // Запускаем корутину с помощью launch и передаем контекст Dispatchers.IO,
+        // чтобы выполнить операцию ввода-вывода (в вашем случае - сетевой запрос) в фоновом потоке
+        val deferredResult = async(Dispatchers.IO) {
+            // Вызываем функцию underFunction() в контексте корутины
+            underFunction(inHTTP)
+        }
+        deferredResult.await()
+    }
+    return result
+}

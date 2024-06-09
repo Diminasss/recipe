@@ -16,6 +16,12 @@ class MenuActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
 
+        val dictionary: Map<String, String> =
+            mapOf()
+        val logInHTTP = "http://10.0.2.2:5000/get_six_random_recipes"
+        val result = doGet(logInHTTP)
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

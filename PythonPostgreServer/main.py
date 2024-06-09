@@ -4,7 +4,7 @@ from DBFunctions.users_alchemy_functions import (user_is_in_table, log_in, get_a
                                                  delete_user, user_initialisation, edit_sql_table)
 from DBFunctions.create_alchemypg_connection import users_table
 
-from DBFunctions.recipes_alchemy_functions import add_recipe_to_table, get_all_recipes_from_user
+from DBFunctions.recipes_alchemy_functions import add_recipe_to_table, get_all_recipes_from_user, get_six_random_recipes_from_table
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
@@ -131,9 +131,14 @@ def get_users_recipes() -> tuple[wrappers.Response, int]:
     response = get_all_recipes_from_user(login)
     return jsonify(response), 200
 
-@app.route("/get_six_random_recipes", methods=['POST'])
+
+@app.route("/get_six_random_recipes", methods=['GET'])
 def get_six_random_recipes() -> tuple[wrappers.Response, int]:
     logger.info(f"Получение 6 случайных рецептов в {get_users_recipes.__name__}")
+
+    response: dict[str, str] | dict[str, list[dict[str, str]]] = get_six_random_recipes_from_table()
+
+    return jsonify(response), 200
 
 
 if __name__ == "__main__":
