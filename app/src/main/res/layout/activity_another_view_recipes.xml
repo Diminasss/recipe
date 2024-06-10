@@ -22,55 +22,99 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156" />
-
+        app:layout_constraintVertical_bias="0.128" />
 
     <ImageView
         android:id="@+id/imagerec"
-        android:layout_width="250dp"
-        android:layout_height="180dp"
+        android:layout_width="212dp"
+        android:layout_height="143dp"
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.308"
+        app:layout_constraintTop_toBottomOf="@+id/chooserectext"
+        app:layout_constraintVertical_bias="0.038"
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
-        android:id="@+id/description"
-        android:layout_width="250dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="24dp"
+        android:id="@+id/id"
+        android:layout_width="256dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edittext_border"
-        android:ems="10"
-        android:gravity="left|top"
-        android:hint="Текст с описанием чужого рецепта"
-        android:inputType="date"
-        android:padding="8dp"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="Ник нейм"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagerec" />
+
+    <EditText
+        android:id="@+id/сategoryRecepie"
+        android:layout_width="256dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext_border"
+        android:hint="Категория"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagerec"
-        app:layout_constraintVertical_bias="0.087" />
+        app:layout_constraintTop_toBottomOf="@+id/id" />
 
     <Button
-        android:id="@+id/myrecipes"
+        android:id="@+id/allMyRecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Мои рецепты"
-        android:textSize="18dp"
+        android:text="<--"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="409dp"
+        android:layout_height="322dp"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="409dp"
+        android:layout_height="322dp"
+        android:hint="Описание"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:textSize="20sp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/line"
+        app:layout_constraintVertical_bias="1.0" />
+    </ScrollView>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_marginBottom="-30dp"
+        android:background="@drawable/border_line"
+        app:layout_constraintBottom_toBottomOf="@+id/сategoryRecepie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

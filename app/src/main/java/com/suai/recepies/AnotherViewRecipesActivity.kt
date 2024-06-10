@@ -19,7 +19,7 @@ class AnotherViewRecipesActivity : AppCompatActivity() {
             insets
         }
 
-        val myRecipes: Button = findViewById(R.id.myrecipes)
+        val myRecipes: Button = findViewById(R.id.allMyRecipes)
         myRecipes.setOnClickListener{
             val intent = Intent(this, MyRecipesActivity::class.java)
             startActivity(intent)
