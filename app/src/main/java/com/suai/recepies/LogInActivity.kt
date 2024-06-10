@@ -13,41 +13,41 @@ import androidx.appcompat.app.AppCompatActivity
 class LogInActivity : AppCompatActivity() {
     private val databaseManager = DatabaseManager(this)
     override fun onCreate(savedInstanceState: Bundle?) {
-        println("Включение онкреэт")
+        //println("Включение онкреэт")
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
         databaseManager.openDB()
         if (databaseManager.userIsInTable()) {
-            println("Пользователь уже в таблице")
+            //println("Пользователь уже в таблице")
 
             val dictionaryFromDB = databaseManager.getUserLoginAndPasswordFromDB()
 
-            println(dictionaryFromDB)
+            //println(dictionaryFromDB)
             val logInHTTP = "http://10.0.2.2:5000/log_in"
             val result = doPost(dictionaryFromDB, logInHTTP)
-            println("Успешный post запрос")
+            //println("Успешный post запрос")
             if (result != null) {
                 if (result["result"] == "successfully") {
-                    println("Вход выполнен успешно")
+                    //println("Вход выполнен успешно")
                     Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, MenuActivity::class.java)
                     startActivity(intent)
 
                 } else if (result["result"] == "invalid_password") {
-                    println("Неверный пароль")
+                    //println("Неверный пароль")
                     Toast.makeText(this, "Неверный пароль", Toast.LENGTH_LONG).show()
                     databaseManager.onUpgrade()
                     listenButton()
 
                 } else if (result["result"] == "no_user") {
-                    println("Такого пользователя нет")
+                    //println("Такого пользователя нет")
                     Toast.makeText(this, "Такого пользователя больше нет", Toast.LENGTH_LONG).show()
                     databaseManager.onUpgrade()
                     listenButton()
 
                 } else{
-                    println("Неизвестная ошибка")
+                    //println("Неизвестная ошибка")
                     Toast.makeText(this, "Неизвестная ошибка", Toast.LENGTH_LONG).show()
                     listenButton()
 
@@ -57,11 +57,11 @@ class LogInActivity : AppCompatActivity() {
                 listenButton()
             }
 
-            println("Завершение блока пользователь уже в базе")
-            println(result)
+            //println("Завершение блока пользователь уже в базе")
+            //println(result)
 
         } else {
-            println("Пользователя нет в базе на телефоне")
+            //println("Пользователя нет в базе на телефоне")
             listenButton()
         }
     }
@@ -78,7 +78,7 @@ class LogInActivity : AppCompatActivity() {
 
 
         button.setOnClickListener {
-            println("Кнопка сработала!")
+            //println("Кнопка сработала!")
             val login = userLogin.text.toString().trim()
             val password = userPassword.text.toString().trim()
 

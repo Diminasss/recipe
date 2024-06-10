@@ -132,12 +132,12 @@ def get_users_recipes() -> tuple[wrappers.Response, int]:
     return jsonify(response), 200
 
 
-@app.route("/get_six_random_recipes", methods=['GET'])
+@app.route("/get_six_random_recipes", methods=['POST', 'GET'])
 def get_six_random_recipes() -> tuple[wrappers.Response, int]:
     logger.info(f"Получение 6 случайных рецептов в {get_users_recipes.__name__}")
 
     response: dict[str, str] | dict[str, list[dict[str, str]]] = get_six_random_recipes_from_table()
-
+    print(response)
     return jsonify(response), 200
 
 

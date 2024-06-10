@@ -11,7 +11,22 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okio.IOException
+import java.io.IOException
+
+
+
+
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.POST
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import retrofit2.Callback
+import retrofit2.Response
+
 
 
 fun doPost(mapToJSON: Map<String, Any>, inHTTP: String): Map<String, Any>? {
@@ -66,6 +81,68 @@ fun doPost(mapToJSON: Map<String, Any>, inHTTP: String): Map<String, Any>? {
     return result
 }
 
+//fun doPost2(inHTTP: String): Map<String, Any>? {
+//    val mapToJSON: Map<String, Any> = emptyMap()
+//    @WorkerThread
+//    fun underFunction(dictionary: Map<String, Any>, http: String): Map<String, Any>? {
+//
+//        // Создание данных и сериализация
+//
+//        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+//        val adapter = moshi.adapter(Map::class.java)
+//
+//        // Получение полноценного JSON и метаданных к нему
+//        val jsonRequest = adapter.toJson(dictionary)
+//        val JSON = "application/json; charset=utf-8".toMediaType()
+//
+//
+//        // Создание клиента и формирование запроса
+//        val client = OkHttpClient()
+//
+//
+//
+//
+//
+//        val body: RequestBody = jsonRequest.toRequestBody(JSON)
+//        val request = Request.Builder().url(http).post(body).build()
+//
+//
+//        // Попытка проведения Post запроса
+//        try {
+//
+//            client.newCall(request).execute().use { response ->
+//                if (!response.isSuccessful) {
+//                    throw IOException("Запрос к серверу не был успешным")
+//                }
+//                val responseBody = response.body?.string()
+//                println("Response body: $responseBody")
+//                val responseAdapter = moshi.adapter<Map<String, Any>>(Map::class.java)
+//                val registerResponse: Map<String, Any>? =
+//                    responseAdapter.fromJson(response.body!!.string())
+//                return registerResponse
+//            }
+//
+//        } catch (e: Exception) {
+//            println("Произошла ошибка: $e")
+//            return mapOf("result" to "Exception")
+//        }
+//    }
+//    // Создаем корутину в блоке runBlocking
+//    val result = runBlocking {
+//        // Запускаем корутину с помощью launch и передаем контекст Dispatchers.IO,
+//        // чтобы выполнить операцию ввода-вывода (в вашем случае - сетевой запрос) в фоновом потоке
+//        val deferredResult = async(Dispatchers.IO) {
+//            // Вызываем функцию register() в контексте корутины
+//            underFunction(mapToJSON, inHTTP)
+//        }
+//        deferredResult.await()
+//    }
+//    return result
+//}
+
+
+
+
 fun doGet(inHTTP: String): Map<String, Any>? {
     @WorkerThread
     fun underFunction(http: String): Map<String, Any>? {
@@ -88,8 +165,7 @@ fun doGet(inHTTP: String): Map<String, Any>? {
                 return resultResponse
             }
         } catch (e: Exception) {
-            println("Запрос пошёл по нн-ому месту")
-            println("Произошла ошибка: $e")
+            println("Get запрос пошёл по нн-ому месту  из-за $e")
             return mapOf("result" to "Exception")
         }
     }
@@ -106,3 +182,5 @@ fun doGet(inHTTP: String): Map<String, Any>? {
     }
     return result
 }
+
+
