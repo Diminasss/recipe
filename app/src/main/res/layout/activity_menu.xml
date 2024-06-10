@@ -303,10 +303,10 @@
 
     <Button
         android:id="@+id/nextRecipeList"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginBottom="10dp"
-        android:text="Следующая страница"
+        android:text="Новая подборка"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
