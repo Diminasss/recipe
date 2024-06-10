@@ -30,7 +30,7 @@ class RegistrationActivity : AppCompatActivity() {
         val userDateOfBirth: EditText = findViewById(R.id.date_of_birth)
         val button: Button = findViewById(R.id.signup)
 
-        userDateOfBirth.setOnClickListener{
+        userDateOfBirth.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
@@ -73,29 +73,42 @@ class RegistrationActivity : AppCompatActivity() {
 
             if (login.isEmpty() || password.isEmpty() || nickName.isEmpty() || dateOfBirth.isEmpty()) {
 
-                Toast.makeText(this, "Все поля данной формы обязательны для заполнения", Toast.LENGTH_LONG).show()
-            }
-
-            else {
+                Toast.makeText(
+                    this,
+                    "Все поля данной формы обязательны для заполнения",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
                 val registerHTTP: String = "http://10.0.2.2:5000/register"
-                val dictionary: Map<String, String> = mapOf("login" to login, "password" to password, "nick_name" to nickName, "date_of_birth" to dateOfBirth)
+                val dictionary: Map<String, String> = mapOf(
+                    "login" to login,
+                    "password" to password,
+                    "nick_name" to nickName,
+                    "date_of_birth" to dateOfBirth
+                )
                 val result = doPost(dictionary, registerHTTP)
-                if (result != null){
+                if (result != null) {
                     if (result["result"] == "successfully") {
-                        Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG)
+                            .show()
                         val intent = Intent(this, LogInActivity::class.java)
                         startActivity(intent)
-                    }
-                    else if(result["result"] == "user_is_already_registered"){
-                        Toast.makeText(this, "Пользователь $login уже существует", Toast.LENGTH_LONG).show()
+                    } else if (result["result"] == "user_is_already_registered") {
+                        Toast.makeText(
+                            this,
+                            "Пользователь $login уже существует",
+                            Toast.LENGTH_LONG
+                        ).show()
                         val intent = Intent(this, LogInActivity::class.java)
                         startActivity(intent)
-                    }
-                    else if(result["result"] == "data_base_error"){
+                    } else if (result["result"] == "data_base_error") {
                         Toast.makeText(this, "Ошибка базы данных", Toast.LENGTH_LONG).show()
-                    }
-                    else if(result["result"] == "login_password_and_nick_name_are_necessary"){
-                        Toast.makeText(this, "Все поля данной формы обязательны для заполнения", Toast.LENGTH_LONG).show()
+                    } else if (result["result"] == "login_password_and_nick_name_are_necessary") {
+                        Toast.makeText(
+                            this,
+                            "Все поля данной формы обязательны для заполнения",
+                            Toast.LENGTH_LONG
+                        ).show()
                         val intent = Intent(this, LogInActivity::class.java)
                         startActivity(intent)
                     }
