@@ -141,13 +141,10 @@ class MenuActivity : AppCompatActivity() {
         if (res != null) {
             val anotherViewIntent = Intent(this, AnotherViewRecipesActivity::class.java)
             anotherViewIntent.putExtra("title", res.title)
-            //            intent.putExtra("photo", res.photo)
+            anotherViewIntent.putExtra("photo", res.photo)
             anotherViewIntent.putExtra("author_nick_name", res.author_nick_name)
             anotherViewIntent.putExtra("description", res.description)
-//            intent.putExtra("category", res.category)
-//            intent.putExtra("author_login", res.author_login)
-
-
+            anotherViewIntent.putExtra("category", res.category)
             startActivity(anotherViewIntent)
         }
     }
