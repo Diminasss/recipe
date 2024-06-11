@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-
+// РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ РЕЦЕПТА в бд!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 class DatabaseManager(context: Context) {
     val myDBHelper = DatabaseHelper(context)
     var db: SQLiteDatabase? = null
@@ -70,11 +70,74 @@ class DatabaseManager(context: Context) {
         myDBHelper.close()
     }
 
-    fun dropTable() {
-        db?.execSQL(MyBDNameClass.DELETE_TABLE)
+    fun onUpgradeUser(){
+        myDBHelper.onUpgrade(db, 1, 1)
     }
 
-    fun onUpgrade(){
-        myDBHelper.onUpgrade(db, 1, 1)
+    fun onUpgradeRecipes(){
+        db?.execSQL(MyBDNameClassForRecipes.DELETE_TABLE)
+        db?.execSQL(MyBDNameClassForRecipes.CREATE_TABLE)
+    }
+
+    fun addRecipesToDB(recipes: List<Recipe>) {
+        recipes.forEach { recipe ->
+            val values = ContentValues().apply {
+                put(MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE, recipe.id)
+                put(MyBDNameClassForRecipes.COLUMN_NAME_TITLE, recipe.title)
+                put(MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY, recipe.category)
+                put(MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION, recipe.description)
+                put(MyBDNameClassForRecipes.COLUMN_NAME_PHOTO, recipe.photo)
+                put(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN, recipe.author_login)
+                put(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME, recipe.author_nick_name)
+            }
+            db?.insert(MyBDNameClassForRecipes.TABLE_NAME, null, values)
+        }
+    }
+    fun getAllRecipesFromDB(): List<Recipe> {
+        val recipes = mutableListOf<Recipe>()
+        val projection = arrayOf(
+            MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE,
+            MyBDNameClassForRecipes.COLUMN_NAME_TITLE,
+            MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY,
+            MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION,
+            MyBDNameClassForRecipes.COLUMN_NAME_PHOTO,
+            MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN,
+            MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME
+        )
+        db?.query(
+            MyBDNameClassForRecipes.TABLE_NAME,
+            projection,
+            null,
+            null,
+            null,
+            null,
+            null
+        )?.use { cursor ->
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE))
+                val title = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_TITLE))
+                val category = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY))
+                val description = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION))
+                val photo = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_PHOTO))
+                val author_login = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN))
+                val author_nick_name = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME))
+                val recipe = Recipe(id, title, category, description, photo, author_login, author_nick_name)
+                recipes.add(recipe)
+            }
+        }
+        return recipes
+    }
+
+    fun anyRecipeIsInTable(): Boolean {
+        var result = false
+        val cursor = db?.query(MyBDNameClassForRecipes.TABLE_NAME, null, null, null, null, null, null)
+
+        with(cursor) {
+            if (cursor?.moveToFirst() == true) {
+                result = true
+            }
+        }
+        cursor?.close()
+        return result
     }
 }

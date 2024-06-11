@@ -37,13 +37,13 @@ class LogInActivity : AppCompatActivity() {
                 } else if (result["result"] == "invalid_password") {
                     //println("Неверный пароль")
                     Toast.makeText(this, "Неверный пароль", Toast.LENGTH_LONG).show()
-                    databaseManager.onUpgrade()
+                    databaseManager.onUpgradeUser()
                     listenButton()
 
                 } else if (result["result"] == "no_user") {
                     //println("Такого пользователя нет")
                     Toast.makeText(this, "Такого пользователя больше нет", Toast.LENGTH_LONG).show()
-                    databaseManager.onUpgrade()
+                    databaseManager.onUpgradeUser()
                     listenButton()
 
                 } else{

@@ -24,3 +24,30 @@ object MyBDNameClass{
 
     const val DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
 }
+
+object MyBDNameClassForRecipes{
+    const val TABLE_NAME = "six_recipes"
+    const val COLUMN_NAME_ID_FROM_BIG_TABLE = "id_from_big_table"
+    const val COLUMN_NAME_TITLE = "title"
+    const val COLUMN_NAME_CATEGORY = "category"
+    const val COLUMN_NAME_DESCRIPTION = "description"
+    const val COLUMN_NAME_PHOTO = "photo"
+    const val COLUMN_NAME_AUTHOR_LOGIN = "author_login"
+    const val COLUMN_NAME_AUTHOR_NICK_NAME = "author_nick_name"
+
+
+    const val DATABASE_VERSION = 1
+    const val DATABASE_NAME = "database.sqlite"
+
+    const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME(" +
+            "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+            "$COLUMN_NAME_ID_FROM_BIG_TABLE INTEGER," +
+            "$COLUMN_NAME_TITLE TEXT," +
+            "$COLUMN_NAME_CATEGORY TEXT," +
+            "$COLUMN_NAME_DESCRIPTION TEXT," +
+            "$COLUMN_NAME_PHOTO TEXT," +
+            "$COLUMN_NAME_AUTHOR_LOGIN TEXT," +
+            "$COLUMN_NAME_AUTHOR_NICK_NAME TEXT)"
+
+    const val DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
+}

@@ -60,7 +60,8 @@ def add_recipe_to_table(login: str, recipe: dict) -> dict:
     else:
         return {"result": "user_is_not_in_table"}
 
-
+# import base64
+# add_recipe_to_table("login", {"title": "Сырники", "description": "Взять творог, яйца, соль и сахар, положить на сковороду и зажарить! И потом мука.", "category": "Выпечка", "photo": base64.b64encode(open("../Sirniki.jpg", "rb").read()).decode("utf-8")})
 def recipe_is_in_table(recipe_id: int) -> bool:
     """
     Есть ли рецепт в таблице?
@@ -105,6 +106,3 @@ def get_six_random_recipes_from_table() -> dict[str, str] | dict[str, list[dict[
         result_dicts = [dict(zip(columns, row)) for row in rows]
 
         return {"result": result_dicts}
-
-
-get_six_random_recipes_from_table()
