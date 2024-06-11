@@ -1,12 +1,11 @@
 package com.suai.recepies
 
-import android.content.Intent
+
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.ScrollView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,9 +23,6 @@ class AnotherViewRecipesActivity : AppCompatActivity() {
         val nickName: String? = intent.getStringExtra("author_nick_name")
         val category: String? = intent.getStringExtra("category")
         val description: String? = intent.getStringExtra("description")
-
-
-
 
 
         val titleView: TextView = findViewById(R.id.chooserectext)
@@ -47,7 +43,6 @@ class AnotherViewRecipesActivity : AppCompatActivity() {
         descriptionTextView.text = description
 
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -56,8 +51,7 @@ class AnotherViewRecipesActivity : AppCompatActivity() {
 
         val myRecipes: Button = findViewById(R.id.allMyRecipes)
         myRecipes.setOnClickListener{
-            val intent = Intent(this, MyRecipesActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }

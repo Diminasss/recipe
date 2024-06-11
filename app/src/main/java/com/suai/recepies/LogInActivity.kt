@@ -32,6 +32,7 @@ class LogInActivity : AppCompatActivity() {
                     //println("Вход выполнен успешно")
                     Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, MenuActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
 
                 } else if (result["result"] == "invalid_password") {
@@ -96,6 +97,7 @@ class LogInActivity : AppCompatActivity() {
                     if (result["result"] == "successfully") {
                         Toast.makeText(this, "Вход выполнен успешно", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, MenuActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
                         databaseManager.openDB()
                         databaseManager.insertUserToDB(
