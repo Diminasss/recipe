@@ -10,10 +10,14 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
+import java.util.regex.Pattern
 
 
 class RegistrationActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
@@ -30,39 +34,10 @@ class RegistrationActivity : AppCompatActivity() {
         val userDateOfBirth: EditText = findViewById(R.id.date_of_birth)
         val button: Button = findViewById(R.id.signup)
 
+
         userDateOfBirth.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            val datePickerDialog = DatePickerDialog(
-                this,
-                { _, year, month, day ->
-                    val selectedDate = "$day.${month + 1}.$year"
-                    // Выполняем проверку ввода даты и сохраняем ее
-                    userDateOfBirth.setText(selectedDate)
-                },
-                year,
-                month,
-                day
-            )
-            datePickerDialog.show()
-            println("Проверка даты прошла успешно")
+            showDatePicker(userDateOfBirth)
         }
-
-// Выполняем проверку ввода даты при изменении текста
-        userDateOfBirth.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val inputDate = s.toString()
-                // Выполняем проверку ввода даты и сохраняем ее
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
 
         button.setOnClickListener {
             val login = userLogin.text.toString().trim()
@@ -72,53 +47,88 @@ class RegistrationActivity : AppCompatActivity() {
 
 
             if (login.isEmpty() || password.isEmpty() || nickName.isEmpty() || dateOfBirth.isEmpty()) {
-
                 Toast.makeText(
                     this,
                     "Все поля данной формы обязательны для заполнения",
                     Toast.LENGTH_LONG
                 ).show()
-            } else {
-                val registerHTTP: String = "http://10.0.2.2:5000/register"
-                val dictionary: Map<String, String> = mapOf(
-                    "login" to login,
-                    "password" to password,
-                    "nick_name" to nickName,
-                    "date_of_birth" to dateOfBirth
-                )
-                val result = doPost(dictionary, registerHTTP)
-                if (result != null) {
-                    if (result["result"] == "successfully") {
-                        Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG)
-                            .show()
-                        val intent = Intent(this, LogInActivity::class.java)
-                        startActivity(intent)
-                    } else if (result["result"] == "user_is_already_registered") {
-                        Toast.makeText(
-                            this,
-                            "Пользователь $login уже существует",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        val intent = Intent(this, LogInActivity::class.java)
-                        startActivity(intent)
-                    } else if (result["result"] == "data_base_error") {
-                        Toast.makeText(this, "Ошибка базы данных", Toast.LENGTH_LONG).show()
-                    } else if (result["result"] == "login_password_and_nick_name_are_necessary") {
-                        Toast.makeText(
-                            this,
-                            "Все поля данной формы обязательны для заполнения",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        val intent = Intent(this, LogInActivity::class.java)
-                        startActivity(intent)
+            }
+//            else if (!isValidDate(dateOfBirth)) {
+//                Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_LONG).show()
+//            }
+            else {
+                if (validateDate(dateOfBirth)) {
+                    val registerHTTP: String = "http://10.0.2.2:5000/register"
+                    val dictionary: Map<String, String> = mapOf(
+                        "login" to login,
+                        "password" to password,
+                        "nick_name" to nickName,
+                        "date_of_birth" to dateOfBirth
+                    )
+                    val result = doPost(dictionary, registerHTTP)
+                    if (result != null) {
+                        if (result["result"] == "successfully") {
+                            Toast.makeText(this, "Пользователь $login добавлен", Toast.LENGTH_LONG)
+                                .show()
+                            //validateDate(result["result"].toString())
+                            val intent = Intent(this, LogInActivity::class.java)
+                            startActivity(intent)
+                        } else if (result["result"] == "user_is_already_registered") {
+                            Toast.makeText(
+                                this,
+                                "Пользователь $login уже существует",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            val intent = Intent(this, LogInActivity::class.java)
+                            startActivity(intent)
+                        } else if (result["result"] == "data_base_error") {
+                            Toast.makeText(this, "Ошибка базы данных", Toast.LENGTH_LONG).show()
+                        } else if (result["result"] == "login_password_and_nick_name_are_necessary") {
+                            Toast.makeText(
+                                this,
+                                "Все поля данной формы обязательны для заполнения",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            val intent = Intent(this, LogInActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
+                    // Очищение полей
+                    userLogin.text.clear()
+                    userPassword.text.clear()
+                    userNickName.text.clear()
+                    userDateOfBirth.text.clear()
+                } else {
+                    Toast.makeText(this, "Неверный формат даты. Ввеите ДД.ММ.ГГГГ", Toast.LENGTH_LONG).show()
                 }
-                // Очищение полей
-                userLogin.text.clear()
-                userPassword.text.clear()
-                userNickName.text.clear()
-                userDateOfBirth.text.clear()
             }
         }
     }
+    private fun validateDate(date: String): Boolean {
+        // Регулярное выражение для формата ДД.ММ.ГГГГ
+        val datePattern = "^([0-2][0-9]|(3)[0-1])\\.(0[1-9]|1[0-2])\\.([0-9]{4})$"
+        val pattern = Pattern.compile(datePattern)
+        val matcher = pattern.matcher(date)
+        return matcher.matches()
+    }
+
+    private fun showDatePicker(editText: EditText) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDay = if (selectedDay < 10) "0$selectedDay" else "$selectedDay"
+                val formattedMonth = if (selectedMonth + 1 < 10) "0${selectedMonth + 1}" else "${selectedMonth + 1}"
+                editText.setText("$formattedDay.$formattedMonth.$selectedYear")
+            },
+            day, month, year
+        )
+        datePickerDialog.show()
+    }
 }
+
+
