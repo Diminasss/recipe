@@ -40,29 +40,52 @@ class MenuActivity : AppCompatActivity() {
             Pair(findViewById<TextView>(R.id.res6), findViewById<ImageView>(R.id.image6))
         )
 
+
+
+
+
+
+
+
+
         findViewById<ConstraintLayout>(R.id.container1).setOnClickListener {
+            getRecipeFromAndroidDB(1)
             Toast.makeText(this, "Container 1 clicked!", Toast.LENGTH_SHORT).show()
+
         }
 
         findViewById<ConstraintLayout>(R.id.container2).setOnClickListener{
+            getRecipeFromAndroidDB(2)
+
             Toast.makeText(this, "Container 2 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container3).setOnClickListener{
+            getRecipeFromAndroidDB(3)
             Toast.makeText(this, "Container 3 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container4).setOnClickListener{
+            getRecipeFromAndroidDB(4)
             Toast.makeText(this, "Container 4 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container5).setOnClickListener{
+            getRecipeFromAndroidDB(5)
             Toast.makeText(this, "Container 5 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container6).setOnClickListener{
+            getRecipeFromAndroidDB(6)
             Toast.makeText(this, "Container 6 clicked!", Toast.LENGTH_SHORT).show()
         }
+
+
+
+
+
+
+
 
 
 
@@ -108,6 +131,24 @@ class MenuActivity : AppCompatActivity() {
             val decodedString = Base64.decode(recipe.photo, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             imageView.setImageBitmap(decodedByte)
+        }
+    }
+
+    private fun getRecipeFromAndroidDB(number: Int){
+        databaseManager.openDB()
+        val res = databaseManager.getRecipeById(number)
+        databaseManager.closeDB()
+        if (res != null) {
+            val anotherViewIntent = Intent(this, AnotherViewRecipesActivity::class.java)
+            anotherViewIntent.putExtra("title", res.title)
+            //            intent.putExtra("photo", res.photo)
+            anotherViewIntent.putExtra("author_nick_name", res.author_nick_name)
+            anotherViewIntent.putExtra("description", res.description)
+//            intent.putExtra("category", res.category)
+//            intent.putExtra("author_login", res.author_login)
+
+
+            startActivity(anotherViewIntent)
         }
     }
 }

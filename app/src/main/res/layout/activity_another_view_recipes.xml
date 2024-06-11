@@ -18,7 +18,7 @@
         android:layout_gravity="center"
         android:text="Название блюда"
         android:textColor="#6750A3"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,37 +40,38 @@
         app:layout_constraintVertical_bias="0.038"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <EditText
-        android:id="@+id/id"
+    <TextView
+        android:id="@+id/nick_name_recipe"
+        android:enabled="false"
         android:layout_width="256dp"
         android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/edittext_border"
         android:hint="Ник нейм"
-        android:inputType="text"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagerec" />
 
-    <EditText
-        android:id="@+id/сategoryRecepie"
+    <TextView
+        android:id="@+id/сategoryRecipe"
         android:layout_width="256dp"
         android:layout_height="35dp"
         android:layout_marginTop="12dp"
+        android:textSize="20sp"
         android:background="@drawable/edittext_border"
         android:hint="Категория"
-        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id" />
+        app:layout_constraintTop_toBottomOf="@+id/nick_name_recipe" />
 
     <Button
         android:id="@+id/allMyRecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="--"
+        android:text="←"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,8 +81,8 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="409dp"
+        android:id="@+id/descriptionScrollView"
+        android:layout_width="match_parent"
         android:layout_height="322dp"
         app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +92,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="322dp"
         android:hint="Описание"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
@@ -111,7 +112,7 @@
         android:layout_height="12dp"
         android:layout_marginBottom="-30dp"
         android:background="@drawable/border_line"
-        app:layout_constraintBottom_toBottomOf="@+id/сategoryRecepie"
+        app:layout_constraintBottom_toBottomOf="@+id/сategoryRecipe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />

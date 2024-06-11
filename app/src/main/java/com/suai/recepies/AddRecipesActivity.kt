@@ -46,7 +46,7 @@ class AddRecipesActivity : AppCompatActivity() {
 
         val recipePhoto: ImageView = findViewById(R.id.addImageRec)
         val recipeTitle: EditText = findViewById(R.id.nameRecepie)
-        val recipeCategory: EditText = findViewById(R.id.сategoryRecepie)
+        val recipeCategory: EditText = findViewById(R.id.сategoryRecipe)
         val recipeDescription: EditText = findViewById(R.id.description)
         recipeDescription.setScroller(Scroller(this))
         recipeDescription.isVerticalScrollBarEnabled = true
