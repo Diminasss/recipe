@@ -141,6 +141,17 @@ class MyRecipesActivity : AppCompatActivity() {
         }
     }
     private fun onRecipeClick(id: Int){
-        println("id - $id")
+        val recipe = databaseManager.getMyOnlyRecipeById(id)
+        val intentShowYourRecipe = Intent(this, ViewRecipesActivity::class.java)
+
+        intentShowYourRecipe.putExtra("id", recipe?.id)
+        intentShowYourRecipe.putExtra("title", recipe?.title)
+        intentShowYourRecipe.putExtra("description", recipe?.description)
+        intentShowYourRecipe.putExtra("category", recipe?.category)
+        intentShowYourRecipe.putExtra("photo", recipe?.photo)
+        intentShowYourRecipe.putExtra("author_nick_name", recipe?.author_nick_name)
+        intentShowYourRecipe.putExtra("author_login", recipe?.author_login)
+
+        startActivity(intentShowYourRecipe)
     }
 }
