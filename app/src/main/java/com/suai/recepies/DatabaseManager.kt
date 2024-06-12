@@ -372,5 +372,43 @@ class DatabaseManager(context: Context) {
         closeDB()
         return ids
     }
+
+    fun getMyOnlyRecipeById(id: Int): Recipe? {
+        openDB()
+
+        println("Начало работы getRecipeById с id: $id")
+        var recipe: Recipe? = null
+        val selection = "${BaseColumns._ID} = ?"
+        val selectionArgs = arrayOf(id.toString())
+        println("Создана начальная часть запроса")
+
+        db?.query(
+            MyBDNameClassForRecipes.TABLE_NAME,
+            null,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val idFromTable = cursor.getInt(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE))
+                val titleFromTable = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_TITLE))
+                val categoryFromTable = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY))
+                val descriptionFromTable = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION))
+                val photoFromTable = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_PHOTO))
+                val authorLoginFromTable = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN))
+                val authorNickNameFromTable = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME))
+
+                recipe = Recipe(idFromTable, titleFromTable, descriptionFromTable, categoryFromTable,  photoFromTable, authorLoginFromTable, authorNickNameFromTable)
+            }
+        }
+        println("Выполнен запрос")
+
+        closeDB()
+        return recipe
+    }
 }
+
+
 

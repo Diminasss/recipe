@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:text="Мои блюда"
         android:textColor="#6750A3"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
