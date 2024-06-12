@@ -9,6 +9,19 @@
     android:background="#92DEE853"
     tools:context=".AnotherViewRecipesActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinetHigh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="91dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinetDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="306dp" />
 
     <TextView
         android:id="@+id/chooserectext"
@@ -20,52 +33,51 @@
         android:textColor="#6750A3"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guidelinetDown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintTop_toTopOf="@id/guidelinetHigh"
+        app:layout_constraintVertical_bias="0.08" />
 
     <ImageView
         android:id="@+id/imagerec"
-        android:layout_width="252dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:adjustViewBounds="true"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/guidelinetDown"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooserectext"
-        app:layout_constraintVertical_bias="0.038"
+        app:layout_constraintVertical_bias="0.51"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/nick_name_recipe"
-        android:enabled="false"
         android:layout_width="256dp"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edittext_border"
+        android:enabled="false"
         android:hint="Ник нейм"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagerec" />
+        app:layout_constraintTop_toTopOf="@+id/guidelinetDown" />
 
     <TextView
         android:id="@+id/сategoryRecipe"
         android:layout_width="256dp"
         android:layout_height="35dp"
-        android:layout_marginTop="12dp"
-        android:textSize="20sp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edittext_border"
         android:hint="Категория"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +88,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="←"
-        android:textSize="30sp"
+        android:gravity="center"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
@@ -94,20 +107,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="322dp"
-        android:hint="Описание"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
-        android:textSize="20sp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/line"
-        app:layout_constraintVertical_bias="1.0" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="322dp"
+            android:hint="Описание"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:textSize="20sp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line"
+            app:layout_constraintVertical_bias="1.0" />
     </ScrollView>
 
     <View

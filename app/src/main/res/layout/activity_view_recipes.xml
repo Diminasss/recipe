@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_begin="90dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineDown"
@@ -36,42 +36,58 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelinetHigh"
         app:layout_constraintVertical_bias="0.027" />
 
     <ImageView
         android:id="@+id/imagerec"
-        android:layout_width="250dp"
-        android:layout_height="180dp"
-        android:layout_gravity="center"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelinetHigh"
-        app:layout_constraintVertical_bias="0.148"
+        app:layout_constraintVertical_bias="0.144"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="250dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="24dp"
+
+    <ScrollView
+        android:id="@+id/descriptionScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/edittext_border"
-        android:ems="10"
-        android:gravity="left|top"
-        android:hint="Текст с описанием моего рецепта"
-        android:inputType="date"
-        android:padding="8dp"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineDown"
+        app:layout_constraintBottom_toTopOf="@id/guidelineDown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHeight_percent="0.36"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagerec"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/guidelinetHigh"
+        app:layout_constraintVertical_bias="0.887"
+        app:layout_constraintWidth_percent="0.6"
+        app:layout_constraintHorizontal_bias="0.5"
+        >
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:background="@null"
+            android:hint="Текст с описанием моего рецепта"
+            android:inputType="textMultiLine"
+            android:padding="2dp"
+            android:scrollbars="vertical"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ScrollView>
 
     <Button
         android:id="@+id/myrecipes"
@@ -98,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineDown"
         app:layout_constraintVertical_bias="1.0" />
 
 
