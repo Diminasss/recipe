@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -38,7 +39,29 @@ class MyRecipesActivity : AppCompatActivity() {
         databaseManager.updateMyRecipesOnlyToDB(recipes)
 
         //sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        createLayout()
 
+
+
+
+
+        //ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+//        val recipesContainer: LinearLayout = findViewById(R.id.recipesContainer)
+//        recipes.forEach { recipe ->
+//            val recipeView = LayoutInflater.from(this).inflate(R.layout.recipe_item, recipesContainer, false)
+
+//            val imageView: ImageView = recipeView.findViewById(R.id.recipe_image1)
+//            val titleView: TextView = recipeView.findViewById(R.id.recipe_title1)
+            // Задайте изображение и текст для каждого рецепта
+//            titleView.text = recipe.title
+//            val imageBytes = Base64.decode(recipe.photo, Base64.DEFAULT)
+//            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+//            imageView.setImageBitmap(decodedImage)
+//
+//            recipesContainer.addView(recipeView)
+        //}
+    }
+    private fun createLayout(){
         val myRecipesOnlyIDs = databaseManager.getAllIdsMyRecipesOnly() // Здесь хранятся все ID моих рецептов
         print("В базе данных теперь содержится: ${myRecipesOnlyIDs.size} рецептов\n")
         val bigIdList: MutableList<List<Int?>> = mutableListOf()
@@ -69,11 +92,16 @@ class MyRecipesActivity : AppCompatActivity() {
 
                 val recipeView = LayoutInflater.from(this).inflate(R.layout.recipe_item, recipesContainer, false)
 
+
                 val recipe1: Recipe? = databaseManager.getRecipeById(first!!.toInt())
                 val imageView1: ImageView = recipeView.findViewById(R.id.recipe_image1)
                 val titleView1: TextView = recipeView.findViewById(R.id.recipe_title1)
-                titleView1.text = recipe1?.title
+                val containerForButton1: ConstraintLayout = recipeView.findViewById(R.id.container1)
 
+                titleView1.text = recipe1?.title
+                containerForButton1.setOnClickListener{
+                    onRecipeClick(first)
+                }
                 val imageBytes1 = Base64.decode(recipe1?.photo, Base64.DEFAULT)
                 val decodedImage1 = BitmapFactory.decodeByteArray(imageBytes1, 0, imageBytes1.size)
                 imageView1.setImageBitmap(decodedImage1)
@@ -83,8 +111,12 @@ class MyRecipesActivity : AppCompatActivity() {
                     val recipe2: Recipe? = databaseManager.getRecipeById(second)
                     val imageView2: ImageView = recipeView.findViewById(R.id.recipe_image2)
                     val titleView2: TextView = recipeView.findViewById(R.id.recipe_title2)
-                    titleView2.text = recipe2?.title
+                    val containerForButton2: ConstraintLayout = recipeView.findViewById(R.id.container2)
 
+                    titleView2.text = recipe2?.title
+                    containerForButton2.setOnClickListener{
+                        onRecipeClick(second)
+                    }
                     val imageBytes2 = Base64.decode(recipe2?.photo, Base64.DEFAULT)
                     val decodedImage2 = BitmapFactory.decodeByteArray(imageBytes2, 0, imageBytes2.size)
                     imageView2.setImageBitmap(decodedImage2)
@@ -94,8 +126,12 @@ class MyRecipesActivity : AppCompatActivity() {
                     val recipe3: Recipe? = databaseManager.getRecipeById(third)
                     val imageView3: ImageView = recipeView.findViewById(R.id.recipe_image3)
                     val titleView3: TextView = recipeView.findViewById(R.id.recipe_title3)
-                    titleView3.text = recipe3?.title
+                    val containerForButton3: ConstraintLayout = recipeView.findViewById(R.id.container3)
 
+                    titleView3.text = recipe3?.title
+                    containerForButton3.setOnClickListener{
+                        onRecipeClick(third)
+                    }
                     val imageBytes3 = Base64.decode(recipe3?.photo, Base64.DEFAULT)
                     val decodedImage3 = BitmapFactory.decodeByteArray(imageBytes3, 0, imageBytes3.size)
                     imageView3.setImageBitmap(decodedImage3)
@@ -103,24 +139,8 @@ class MyRecipesActivity : AppCompatActivity() {
                 recipesContainer.addView(recipeView)
             }
         }
-
-
-
-
-        //ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-//        val recipesContainer: LinearLayout = findViewById(R.id.recipesContainer)
-//        recipes.forEach { recipe ->
-//            val recipeView = LayoutInflater.from(this).inflate(R.layout.recipe_item, recipesContainer, false)
-
-//            val imageView: ImageView = recipeView.findViewById(R.id.recipe_image1)
-//            val titleView: TextView = recipeView.findViewById(R.id.recipe_title1)
-            // Задайте изображение и текст для каждого рецепта
-//            titleView.text = recipe.title
-//            val imageBytes = Base64.decode(recipe.photo, Base64.DEFAULT)
-//            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-//            imageView.setImageBitmap(decodedImage)
-//
-//            recipesContainer.addView(recipeView)
-        //}
+    }
+    private fun onRecipeClick(id: Int){
+        println("id - $id")
     }
 }
