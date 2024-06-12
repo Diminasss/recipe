@@ -17,7 +17,7 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        databaseManager.openDB()
+
         if (databaseManager.userIsInTable()) {
             //println("Пользователь уже в таблице")
 
@@ -99,17 +99,13 @@ class LogInActivity : AppCompatActivity() {
                         val intent = Intent(this, MenuActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
-                        databaseManager.openDB()
+
                         databaseManager.insertUserToDB(
                             login,
                             password,
                             result["nick_name"].toString(),
-                            result["date_of_birth"].toString(),
-                            result["recipes_owner"].toString()
+                            result["date_of_birth"].toString()
                         )
-                        databaseManager.closeDB()
-
-
 
                         startActivity(intent)
                     } else if (result["result"] == "invalid_password") {

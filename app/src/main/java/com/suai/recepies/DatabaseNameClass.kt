@@ -19,8 +19,7 @@ object MyBDNameClass{
             "$COLUMN_NAME_LOGIN TEXT," +
             "$COLUMN_NAME_PASSWORD TEXT," +
             "$COLUMN_NAME_NICKNAME TEXT," +
-            "$COLUMN_NAME_DATE_OF_BIRTH TEXT," +
-            "$COLUMN_NAME_RECIPES_OWNER TEXT)"
+            "$COLUMN_NAME_DATE_OF_BIRTH TEXT)"
 
     const val DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
 }

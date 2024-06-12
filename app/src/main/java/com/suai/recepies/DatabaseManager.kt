@@ -3,6 +3,7 @@ package com.suai.recepies
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
@@ -11,21 +12,26 @@ class DatabaseManager(context: Context) {
     val myDBHelper = DatabaseHelper(context)
     var db: SQLiteDatabase? = null
 
-    fun openDB(){
+    private fun openDB(){
         db = myDBHelper.writableDatabase
     }
-    fun insertUserToDB(login: String, password: String, nickname: String, dateOfBirth: String, recipesOwner: String){
+    fun insertUserToDB(login: String, password: String, nickname: String, dateOfBirth: String){
+        openDB()
+
         val values = ContentValues().apply {
             put(MyBDNameClass.COLUMN_NAME_LOGIN, login)
             put(MyBDNameClass.COLUMN_NAME_PASSWORD, password)
             put(MyBDNameClass.COLUMN_NAME_NICKNAME, nickname)
             put(MyBDNameClass.COLUMN_NAME_DATE_OF_BIRTH, dateOfBirth)
-            put(MyBDNameClass.COLUMN_NAME_RECIPES_OWNER, recipesOwner)
         }
         db?.insert(MyBDNameClass.TABLE_NAME, null, values)
+
+        closeDB()
     }
     @SuppressLint("Range")
     fun getUserLoginAndPasswordFromDB(): Map<String, Any> {
+        openDB()
+
         var dataMap: Map<String, Any> = emptyMap() // Инициализация пустым словарем
         val cursor = db?.query(MyBDNameClass.TABLE_NAME, null, null, null, null, null, null)
 
@@ -39,11 +45,15 @@ class DatabaseManager(context: Context) {
                 )
             }
         }
+
+        closeDB()
         return dataMap
     }
 
     @SuppressLint("Range")
     fun getLoginFromDB(): String {
+        openDB()
+
         var loginFromTable = ""
         val cursor = db?.query(MyBDNameClass.TABLE_NAME, null, null, null, null, null, null)
 
@@ -52,10 +62,14 @@ class DatabaseManager(context: Context) {
                 loginFromTable = it.getString(it.getColumnIndex(MyBDNameClass.COLUMN_NAME_LOGIN))
             }
         }
+
+        closeDB()
         return loginFromTable
     }
 
     fun userIsInTable(): Boolean {
+        openDB()
+
         var result = false
         val cursor = db?.query(MyBDNameClass.TABLE_NAME, null, null, null, null, null, null)
 
@@ -65,23 +79,35 @@ class DatabaseManager(context: Context) {
             }
         }
         cursor?.close()
+
+        closeDB()
         return result
     }
 
-    fun closeDB(){
+    private fun closeDB(){
         myDBHelper.close()
     }
 
     fun onUpgradeUser(){
+        openDB()
+
         myDBHelper.onUpgrade(db, 1, 1)
+
+        closeDB()
     }
 
     fun onUpgradeRecipes(){
+        openDB()
+
         db?.execSQL(MyBDNameClassForRecipes.DELETE_TABLE)
         db?.execSQL(MyBDNameClassForRecipes.CREATE_TABLE)
+
+        closeDB()
     }
 
     fun addRecipesToDB(recipes: List<Recipe>) {
+        openDB()
+
         recipes.forEach { recipe ->
             val values = ContentValues().apply {
                 put(MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE, recipe.id)
@@ -94,43 +120,99 @@ class DatabaseManager(context: Context) {
             }
             db?.insert(MyBDNameClassForRecipes.TABLE_NAME, null, values)
         }
+
+        closeDB()
     }
+//    fun getAllRecipesFromDB(): List<Recipe> {
+//        openDB()
+//
+//        val recipes = mutableListOf<Recipe>()
+//        val projection = arrayOf(
+//            MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE,
+//            MyBDNameClassForRecipes.COLUMN_NAME_TITLE,
+//            MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY,
+//            MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION,
+//            MyBDNameClassForRecipes.COLUMN_NAME_PHOTO,
+//            MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN,
+//            MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME
+//        )
+//        println("Выполнение запроса к базе данных")
+//        db?.query(
+//            MyBDNameClassForRecipes.TABLE_NAME,
+//            projection,
+//            null,
+//            null,
+//            null,
+//            null,
+//            null
+//        )?.use { cursor ->
+//            while (cursor.moveToNext()) {
+//                val id = cursor.getInt(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE))
+//                val title = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_TITLE))
+//                val category = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY))
+//                val description = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION))
+//                val photo = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_PHOTO))
+//                val author_login = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN))
+//                val author_nick_name = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME))
+//                val recipe = Recipe(id, title, category, description, photo, author_login, author_nick_name)
+//                println(recipe)
+//                recipes.add(recipe)
+//            }
+//        }
+//        println("Запрос успешно выполнен")
+//
+//        closeDB()
+//        return recipes
+//    }
+
+    @SuppressLint("Range")
     fun getAllRecipesFromDB(): List<Recipe> {
+        openDB()
+
         val recipes = mutableListOf<Recipe>()
-        val projection = arrayOf(
-            MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE,
-            MyBDNameClassForRecipes.COLUMN_NAME_TITLE,
-            MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY,
-            MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION,
-            MyBDNameClassForRecipes.COLUMN_NAME_PHOTO,
-            MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN,
-            MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME
-        )
-        db?.query(
+        val cursor = db?.query(
             MyBDNameClassForRecipes.TABLE_NAME,
-            projection,
+            null,
             null,
             null,
             null,
             null,
             null
-        )?.use { cursor ->
-            while (cursor.moveToNext()) {
-                val id = cursor.getInt(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE))
-                val title = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_TITLE))
-                val category = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY))
-                val description = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION))
-                val photo = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_PHOTO))
-                val author_login = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN))
-                val author_nick_name = cursor.getString(cursor.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME))
-                val recipe = Recipe(id, title, category, description, photo, author_login, author_nick_name)
-                recipes.add(recipe)
+        )
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val idIndex = it.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_ID_FROM_BIG_TABLE)
+                val titleIndex = it.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_TITLE)
+                val categoryIndex = it.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_CATEGORY)
+                val descriptionIndex = it.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_DESCRIPTION)
+                val photoIndex = it.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_PHOTO)
+                val authorLoginIndex = it.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_LOGIN)
+                val authorNickNameIndex = it.getColumnIndexOrThrow(MyBDNameClassForRecipes.COLUMN_NAME_AUTHOR_NICK_NAME)
+
+                do {
+                    val recipe = Recipe(
+                        id = it.getInt(idIndex),
+                        title = it.getString(titleIndex),
+                        description = it.getString(descriptionIndex),
+                        category = it.getString(categoryIndex),
+                        photo = it.getString(photoIndex),
+                        author_login = it.getString(authorLoginIndex),
+                        author_nick_name = it.getString(authorNickNameIndex)
+                    )
+                    println(recipe.title)
+                    recipes.add(recipe)
+                } while (it.moveToNext())
             }
         }
+
+        closeDB()
         return recipes
     }
 
     fun anyRecipeIsInTable(): Boolean {
+        openDB()
+
         var result = false
         val cursor = db?.query(MyBDNameClassForRecipes.TABLE_NAME, null, null, null, null, null, null)
 
@@ -140,10 +222,14 @@ class DatabaseManager(context: Context) {
             }
         }
         cursor?.close()
+
+        closeDB()
         return result
     }
 
     fun getRecipeById(id: Int): Recipe? {
+        openDB()
+
         println("Начало работы getRecipeById с id: $id")
         var recipe: Recipe? = null
         val selection = "${BaseColumns._ID} = ?"
@@ -172,12 +258,16 @@ class DatabaseManager(context: Context) {
             }
         }
         println("Выполнен запрос")
+
+        closeDB()
         return recipe
     }
 
 
 
     private fun getAllIds(): List<Int> {
+        openDB()
+
         val ids = mutableListOf<Int>()
         val columns = arrayOf(BaseColumns._ID) // Указываем, что нам нужен только столбец _ID
 
@@ -201,6 +291,7 @@ class DatabaseManager(context: Context) {
             e.printStackTrace()
         }
 
+        closeDB()
         return ids
     }
 

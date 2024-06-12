@@ -82,9 +82,9 @@ class AddRecipesActivity : AppCompatActivity() {
                     "description" to description,
                     "category" to category
                 )
-                databaseManager.openDB()
+
                 val login: String = databaseManager.getLoginFromDB()
-                databaseManager.closeDB()
+
                 val mapp = mutableMapOf(
                     "login" to login,
                     "recipe" to recipe

@@ -25,18 +25,19 @@ class MenuActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
-        databaseManager.openDB()
+
+        databaseManager.printAllIds()
         if (databaseManager.anyRecipeIsInTable()){
             thread {
-                Thread.sleep(300)
+                Thread.sleep(500)
                 val recipesFromAndroidDB: List<Recipe> = databaseManager.getAllRecipesFromDB()
-                databaseManager.closeDB()
+
                 runOnUiThread {
                     displayRecipes(recipesFromAndroidDB)
                 }
             }
         } else {
-            databaseManager.closeDB()
+
             loadRecipes()
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -44,7 +45,7 @@ class MenuActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // Инициализируйте recipeViews здесь
+
         recipeViews = listOf(
             Pair(findViewById<TextView>(R.id.res1), findViewById<ImageView>(R.id.image1)),
             Pair(findViewById<TextView>(R.id.res2), findViewById<ImageView>(R.id.image2)),
@@ -82,15 +83,14 @@ class MenuActivity : AppCompatActivity() {
 
         val addRecipesButton: Button = findViewById(R.id.nextRecipeList)
         addRecipesButton.setOnClickListener {
-            Toast.makeText(this, "Новая подборка!", Toast.LENGTH_LONG).show()
             loadRecipes()
+            Toast.makeText(this, "Новая подборка!", Toast.LENGTH_LONG).show()
         }
         val myRecipesButton: Button = findViewById(R.id.myrecipes)
         myRecipesButton.setOnClickListener {
-            val intent = Intent(this, AddRecipesActivity::class.java)
+            val intent = Intent(this, MyRecipesActivity::class.java)
             startActivity(intent)
         }
-
     }
 
 
@@ -99,16 +99,16 @@ class MenuActivity : AppCompatActivity() {
 
         thread {
             val result: List<Recipe> = doPostRetroMainMenu(logInHTTP)
-            Thread.sleep(300)
+            Thread.sleep(500)
 
             runOnUiThread {
                 displayRecipes(result)
             }
             if (result.isNotEmpty()) {
-                databaseManager.openDB()
+
                 databaseManager.onUpgradeRecipes()
                 databaseManager.addRecipesToDB(result)
-                databaseManager.closeDB()
+
             }
         }
 
@@ -128,9 +128,7 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun getRecipeFromAndroidDB(number: Int){
-        databaseManager.openDB()
         val res = databaseManager.getRecipeById(number)
-        databaseManager.closeDB()
         if (res != null) {
             val anotherViewIntent = Intent(this, AnotherViewRecipesActivity::class.java)
             anotherViewIntent.putExtra("title", res.title)
@@ -142,5 +140,3 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 }
-
-
