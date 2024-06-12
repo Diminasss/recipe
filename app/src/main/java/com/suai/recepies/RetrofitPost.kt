@@ -4,11 +4,16 @@ import retrofit2.http.POST
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlinx.coroutines.runBlocking
+import retrofit2.Response
+import retrofit2.http.Body
 
 
 interface RecipeApiService {
     @POST("/get_six_random_recipes")
     suspend fun getSixRandomRecipes(): RecipeResponse
+
+    @POST("/get_users_recipes")
+    suspend fun getUsersRecipes(@Body request: Map<String, String>): Response<RecipeResponse>
 }
 
 data class RecipeResponse(
@@ -40,6 +45,44 @@ fun doPostRetroMainMenu(http: String): List<Recipe> = runBlocking {
     } catch (e: Exception) {
         // Handle the error here
     }
+    resultList
+}
 
+//fun doPostRetroMyRecipes(login: String, http: String): List<Recipe> = runBlocking {
+//    val retrofit = Retrofit.Builder()
+//        .baseUrl(http)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
+//
+//    val service = retrofit.create(RecipeApiService::class.java)
+//    var resultList: List<Recipe> = emptyList()
+//
+//    try {
+//        val recipeResponse = service.getSixRandomRecipes()
+//        resultList = recipeResponse.result
+//    } catch (e: Exception) {
+//        // Handle the error here
+//    }
+//    resultList
+//}
+
+fun doPostRetroMyRecipes(login: String, http: String): List<Recipe> = runBlocking {
+    val retrofit = Retrofit.Builder()
+        .baseUrl(http)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val service = retrofit.create(RecipeApiService::class.java)
+    var resultList: List<Recipe> = emptyList()
+
+    try {
+        val request = mapOf("login" to login)
+        val recipeResponse = service.getUsersRecipes(request)
+        if (recipeResponse.isSuccessful) {
+            resultList = recipeResponse.body()?.result ?: emptyList()
+        }
+    } catch (e: Exception) {
+        // Handle the error here
+    }
     resultList
 }

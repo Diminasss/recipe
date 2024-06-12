@@ -7,7 +7,6 @@ import android.util.Base64
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,9 +27,10 @@ class MenuActivity : AppCompatActivity() {
 
         databaseManager.printAllIds()
         if (databaseManager.anyRecipeIsInTable()){
+            val recipesFromAndroidDB: List<Recipe> = databaseManager.getAllRecipesFromDB()
             thread {
-                Thread.sleep(500)
-                val recipesFromAndroidDB: List<Recipe> = databaseManager.getAllRecipesFromDB()
+                //Thread.sleep(500)
+
 
                 runOnUiThread {
                     displayRecipes(recipesFromAndroidDB)
@@ -84,7 +84,7 @@ class MenuActivity : AppCompatActivity() {
         val addRecipesButton: Button = findViewById(R.id.nextRecipeList)
         addRecipesButton.setOnClickListener {
             loadRecipes()
-            Toast.makeText(this, "Новая подборка!", Toast.LENGTH_LONG).show()
+
         }
         val myRecipesButton: Button = findViewById(R.id.myrecipes)
         myRecipesButton.setOnClickListener {
@@ -96,10 +96,10 @@ class MenuActivity : AppCompatActivity() {
 
 
     private fun loadRecipes(logInHTTP: String = "http://10.0.2.2:5000/get_six_random_recipes/") {
-
+        val result: List<Recipe> = doPostRetroMainMenu(logInHTTP)
         thread {
-            val result: List<Recipe> = doPostRetroMainMenu(logInHTTP)
-            Thread.sleep(500)
+
+            //Thread.sleep(500)
 
             runOnUiThread {
                 displayRecipes(result)
