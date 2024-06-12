@@ -9,50 +9,6 @@
     android:background="#92DEE853"
     tools:context=".MyRecipesActivity">
 
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.67" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal_guidelineUpper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal_guidelineMiddle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal_guidelineDown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64" />
-
-
-
-
     <TextView
         android:id="@+id/chooserectext"
         style="@android:style/Widget.Material.TextView.SpinnerItem"
@@ -63,230 +19,24 @@
         android:textColor="#6750A3"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/horizontal_guidelineUpper"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintBottom_toTopOf="@+id/horizontal_guidelineMiddle"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_guidelineUpper">
-
-
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/res1"
-            app:layout_constraintDimensionRatio="1:1"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/res1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Рецепт 1"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/image1"
-            app:layout_constraintStart_toStartOf="@id/image1"
-            app:layout_constraintTop_toBottomOf="@id/image1" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-        app:layout_constraintBottom_toTopOf="@+id/horizontal_guidelineMiddle"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_guidelineUpper">
-
-        <ImageView
-            android:id="@+id/image2"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/res2"
-            app:layout_constraintDimensionRatio="1:1"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/res2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Рецепт 2"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/image2"
-            app:layout_constraintStart_toStartOf="@id/image2"
-            app:layout_constraintTop_toBottomOf="@id/image2" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/guidelineRight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/horizontal_guidelineMiddle"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_guidelineUpper">
-
-        <ImageView
-            android:id="@+id/image3"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/res3"
-            app:layout_constraintDimensionRatio="1:1"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/res3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Рецепт 3"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/image3"
-            app:layout_constraintStart_toStartOf="@id/image3"
-            app:layout_constraintTop_toBottomOf="@id/image3" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guidelineLeft"
-        app:layout_constraintBottom_toTopOf="@+id/horizontal_guidelineDown"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_guidelineMiddle">
+        app:layout_constraintBottom_toTopOf="@+id/guidelineTop" />
 
-        <ImageView
-            android:id="@+id/image4"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/res4"
-            app:layout_constraintDimensionRatio="1:1"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/res4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Рецепт 4"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/image4"
-            app:layout_constraintStart_toStartOf="@id/image4"
-            app:layout_constraintTop_toBottomOf="@id/image4" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container5"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-        app:layout_constraintBottom_toTopOf="@+id/horizontal_guidelineDown"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_guidelineMiddle">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
 
-        <ImageView
-            android:id="@+id/image5"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/res5"
-            app:layout_constraintDimensionRatio="1:1"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/res5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Рецепт 5"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/image5"
-            app:layout_constraintStart_toStartOf="@id/image5"
-            app:layout_constraintTop_toBottomOf="@id/image5" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container6"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/guidelineRight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/horizontal_guidelineDown"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_guidelineMiddle">
-
-        <ImageView
-            android:id="@+id/image6"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/res6"
-            app:layout_constraintDimensionRatio="1:1"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/res6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Рецепт 6"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/image6"
-            app:layout_constraintStart_toStartOf="@id/image6"
-            app:layout_constraintTop_toBottomOf="@id/image6" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
 
     <Button
         android:id="@+id/addRecipeMore"
@@ -299,8 +49,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_guidelineDown"
-        app:layout_constraintVertical_bias="0.725" />
+        app:layout_constraintTop_toBottomOf="@+id/guidelineBottom" />
 
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <LinearLayout
+            android:id="@+id/recipesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
