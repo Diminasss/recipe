@@ -28,7 +28,7 @@ class MenuActivity : AppCompatActivity() {
         databaseManager.openDB()
         if (databaseManager.anyRecipeIsInTable()){
             thread {
-                Thread.sleep(100)
+                Thread.sleep(300)
                 val recipesFromAndroidDB: List<Recipe> = databaseManager.getAllRecipesFromDB()
                 databaseManager.closeDB()
                 runOnUiThread {
@@ -99,7 +99,7 @@ class MenuActivity : AppCompatActivity() {
 
         thread {
             val result: List<Recipe> = doPostRetroMainMenu(logInHTTP)
-            Thread.sleep(100)
+            Thread.sleep(300)
 
             runOnUiThread {
                 displayRecipes(result)
