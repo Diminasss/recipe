@@ -22,9 +22,23 @@ class MenuActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
-        println("Работа экрана")
+        databaseManager.openDB()
+        if (databaseManager.anyRecipeIsInTable()){
+            thread {
+                Thread.sleep(300)
+                val recipesFromAndroidDB: List<Recipe> = databaseManager.getAllRecipesFromDB()
+                databaseManager.closeDB()
+                runOnUiThread {
+                    displayRecipes(recipesFromAndroidDB)
+                }
+            }
+        } else {
+            databaseManager.closeDB()
+            loadRecipes()
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -41,54 +55,29 @@ class MenuActivity : AppCompatActivity() {
         )
 
 
-
-
-
-
-
-
-
         findViewById<ConstraintLayout>(R.id.container1).setOnClickListener {
             getRecipeFromAndroidDB(1)
-            Toast.makeText(this, "Container 1 clicked!", Toast.LENGTH_SHORT).show()
-
         }
 
         findViewById<ConstraintLayout>(R.id.container2).setOnClickListener{
             getRecipeFromAndroidDB(2)
-
-            Toast.makeText(this, "Container 2 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container3).setOnClickListener{
             getRecipeFromAndroidDB(3)
-            Toast.makeText(this, "Container 3 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container4).setOnClickListener{
             getRecipeFromAndroidDB(4)
-            Toast.makeText(this, "Container 4 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container5).setOnClickListener{
             getRecipeFromAndroidDB(5)
-            Toast.makeText(this, "Container 5 clicked!", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<ConstraintLayout>(R.id.container6).setOnClickListener{
             getRecipeFromAndroidDB(6)
-            Toast.makeText(this, "Container 6 clicked!", Toast.LENGTH_SHORT).show()
         }
-
-
-
-
-
-
-
-
-
-
 
 
         val addRecipesButton: Button = findViewById(R.id.nextRecipeList)
@@ -101,13 +90,16 @@ class MenuActivity : AppCompatActivity() {
             val intent = Intent(this, AddRecipesActivity::class.java)
             startActivity(intent)
         }
-        loadRecipes()
+
     }
 
+
+
     private fun loadRecipes(logInHTTP: String = "http://10.0.2.2:5000/get_six_random_recipes/") {
+
         thread {
             val result: List<Recipe> = doPostRetroMainMenu(logInHTTP)
-            Thread.sleep(100)
+            Thread.sleep(300)
 
             runOnUiThread {
                 displayRecipes(result)
@@ -119,6 +111,7 @@ class MenuActivity : AppCompatActivity() {
                 databaseManager.closeDB()
             }
         }
+
     }
 
     private fun displayRecipes(recipes: List<Recipe>) {
