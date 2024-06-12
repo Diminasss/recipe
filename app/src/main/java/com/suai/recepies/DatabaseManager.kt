@@ -88,10 +88,18 @@ class DatabaseManager(context: Context) {
         myDBHelper.close()
     }
 
-    fun onUpgradeUser(){
+    fun onUpgradeFull(){
         openDB()
 
         myDBHelper.onUpgrade(db, 1, 1)
+
+        closeDB()
+    }
+    fun onUpgradeUser(){
+        openDB()
+
+        db?.execSQL(MyBDNameClass.DELETE_TABLE)
+        db?.execSQL(MyBDNameClass.CREATE_TABLE)
 
         closeDB()
     }
@@ -101,6 +109,15 @@ class DatabaseManager(context: Context) {
 
         db?.execSQL(MyBDNameClassForRecipes.DELETE_TABLE)
         db?.execSQL(MyBDNameClassForRecipes.CREATE_TABLE)
+
+        closeDB()
+    }
+
+    fun onUpgradeMyRecipesOnly(){
+        openDB()
+
+        db?.execSQL(MyDBNameClassForMyRecipesOnly.DELETE_TABLE)
+        db?.execSQL(MyDBNameClassForMyRecipesOnly.CREATE_TABLE)
 
         closeDB()
     }
@@ -303,4 +320,57 @@ class DatabaseManager(context: Context) {
             println(id)
         }
     }
+
+    fun updateMyRecipesOnlyToDB(recipes: List<Recipe>) {
+        openDB()
+
+        db?.execSQL(MyDBNameClassForMyRecipesOnly.DELETE_TABLE)
+        db?.execSQL(MyDBNameClassForMyRecipesOnly.CREATE_TABLE)
+
+        recipes.forEach { recipe ->
+            val values = ContentValues().apply {
+                put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_ID_FROM_BIG_TABLE, recipe.id)
+                put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_TITLE, recipe.title)
+                put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_CATEGORY, recipe.category)
+                put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_DESCRIPTION, recipe.description)
+                put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_PHOTO, recipe.photo)
+                put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_AUTHOR_LOGIN, recipe.author_login)
+                put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_AUTHOR_NICK_NAME, recipe.author_nick_name)
+            }
+            db?.insert(MyDBNameClassForMyRecipesOnly.TABLE_NAME, null, values)
+        }
+
+        closeDB()
+    }
+
+    fun getAllIdsMyRecipesOnly(): List<Int> {
+        openDB()
+
+        val ids = mutableListOf<Int>()
+        val columns = arrayOf(BaseColumns._ID) // Указываем, что нам нужен только столбец _ID
+
+        try {
+            db?.query(
+                MyDBNameClassForMyRecipesOnly.TABLE_NAME,
+                columns,   // Запрашиваем только столбец _ID
+                null,      // Без условий
+                null,      // Без аргументов условий
+                null,      // Без группировки
+                null,      // Без фильтрации по группам
+                null       // Без сортировки
+            )?.use { cursor ->
+                while (cursor.moveToNext()) {
+                    val id = cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID))
+                    ids.add(id)
+                }
+            }
+        } catch (e: Exception) {
+            println("Произошла ошибка: ${e.message}")
+            e.printStackTrace()
+        }
+
+        closeDB()
+        return ids
+    }
 }
+

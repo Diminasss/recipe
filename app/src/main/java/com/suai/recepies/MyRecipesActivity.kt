@@ -37,8 +37,14 @@ class MyRecipesActivity : AppCompatActivity() {
 
 
         val login: String = databaseManager.getLoginFromDB()
-        val recipes = doPostRetroMyRecipes(login, "http://10.0.2.2:5000/get_users_recipes/")
-        println("Размер моих рецептов ${recipes.size}")
+        val recipes: List<Recipe> = doPostRetroMyRecipes(login, "http://10.0.2.2:5000/get_users_recipes/")
+        println("Получено с сервера моих рецептов ${recipes.size}")
+        val a = databaseManager.getAllIdsMyRecipesOnly()
+        print("В базе данных было: ${a.size} рецептов\n")
+        databaseManager.updateMyRecipesOnlyToDB(recipes)
+        val b = databaseManager.getAllIdsMyRecipesOnly()
+        print("В базе данных теперь содержится: ${b.size} рецептов\n")
+
 
     }
 }
