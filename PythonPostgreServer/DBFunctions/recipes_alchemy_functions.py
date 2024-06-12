@@ -61,10 +61,6 @@ def add_recipe_to_table(login: str, recipe: dict) -> dict:
         return {"result": "user_is_not_in_table"}
 
 
-# import base64
-# import Рецепты
-# add_recipe_to_table("login", {"title": "Шаверма", "description": Рецепты.salat, "category": "Фаст-фуд", "photo": base64.b64encode(open("../Shaverma.jpg", "rb").read()).decode("utf-8")})
-
 def recipe_is_in_table(recipe_id: int) -> bool:
     """
     Есть ли рецепт в таблице?
