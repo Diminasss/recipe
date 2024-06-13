@@ -81,7 +81,7 @@ class MenuActivity : AppCompatActivity() {
         }
 
 
-        val addRecipesButton: Button = findViewById(R.id.nextRecipeList)
+        val addRecipesButton: Button = findViewById(R.id.save)
         addRecipesButton.setOnClickListener {
             loadRecipes()
 

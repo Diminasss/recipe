@@ -4,7 +4,7 @@ from DBFunctions.users_alchemy_functions import (user_is_in_table, log_in, get_a
                                                  delete_user, user_initialisation, edit_sql_table)
 from DBFunctions.create_alchemypg_connection import users_table
 
-from DBFunctions.recipes_alchemy_functions import add_recipe_to_table, get_all_recipes_from_user, get_six_random_recipes_from_table
+from DBFunctions.recipes_alchemy_functions import add_recipe_to_table, get_all_recipes_from_user, get_six_random_recipes_from_table, update_recipe_in_table
 
 app = Flask(__name__)
 logger = initialize_logger(__name__)
@@ -139,6 +139,20 @@ def get_six_random_recipes() -> tuple[wrappers.Response, int]:
     response: dict[str, str] | dict[str, list[dict[str, str]]] = get_six_random_recipes_from_table()
     print(response)
     return jsonify(response), 200
+
+
+@app.route("/update_recipe", methods=['POST'])
+def update_recipe() -> tuple[wrappers.Response, int]:
+    logger.info(f"Получение 6 случайных рецептов в {get_users_recipes.__name__}")
+    request_data: dict = request.get_json()
+
+    big_id: int = int(request_data.get('id'))
+    title: str = request_data.get('title')
+    description: str = request_data.get('description')
+    photo: str = request_data.get('photo')
+    result: dict = update_recipe_in_table(big_id, title, description, photo)
+
+    return jsonify(result), 200
 
 
 if __name__ == "__main__":

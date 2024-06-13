@@ -3,7 +3,6 @@ package com.suai.recepies
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
@@ -408,6 +407,23 @@ class DatabaseManager(context: Context) {
         closeDB()
         return recipe
     }
+
+    fun updateRecipeInMyRecipesOnly(id: Int, newPhoto: String?, newDescription: String, newTitle: String) {
+        openDB()
+
+        val values = ContentValues().apply {
+            put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_PHOTO, newPhoto)
+            put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_DESCRIPTION, newDescription)
+            put(MyDBNameClassForMyRecipesOnly.COLUMN_NAME_TITLE, newTitle)
+        }
+
+        val selection = "${MyDBNameClassForMyRecipesOnly.COLUMN_NAME_ID_FROM_BIG_TABLE} = ?"
+        val selectionArgs = arrayOf(id.toString())
+
+        db?.update(MyDBNameClassForMyRecipesOnly.TABLE_NAME, values, selection, selectionArgs)
+        closeDB()
+    }
+
 }
 
 

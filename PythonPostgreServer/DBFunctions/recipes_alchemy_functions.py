@@ -1,6 +1,6 @@
 from DBFunctions.create_alchemypg_connection import recipes_table, users_table, engine
 from DBFunctions.users_alchemy_functions import edit_sql_table, user_is_in_table, get_from_postgresql_table
-from sqlalchemy import select, func, insert
+from sqlalchemy import select, func, insert, update
 from logger import initialize_logger
 
 logger = initialize_logger(__name__)
@@ -105,3 +105,31 @@ def get_six_random_recipes_from_table() -> dict[str, str] | dict[str, list[dict[
         result_dicts = [dict(zip(columns, row)) for row in rows]
 
         return {"result": result_dicts}
+
+
+def update_recipe_in_table(recipe_id: int, title: str, description: str, photo: str) -> dict:
+    # Проверяем, существует ли рецепт в таблице
+    if not recipe_is_in_table(recipe_id):
+        return {"result": "recipe_not_found"}
+
+    # Формируем запрос на обновление
+    statement = (
+        update(recipes_table)
+        .where(recipes_table.c.id == recipe_id)
+        .values(
+            title=title,
+            description=description,
+            photo=photo
+        )
+    )
+
+    # Выполняем запрос
+    try:
+        with engine.connect() as connection:
+            connection.execute(statement)
+            connection.commit()
+        logger.info(f"Рецепт с ID {recipe_id} успешно обновлен.")
+        return {"result": "success"}
+    except Exception as e:
+        logger.error(f"Ошибка при обновлении рецепта с ID {recipe_id}: {e}")
+        return {"result": "error", "message": str(e)}

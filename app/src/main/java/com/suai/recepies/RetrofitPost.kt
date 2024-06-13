@@ -14,6 +14,9 @@ interface RecipeApiService {
 
     @POST("/get_users_recipes")
     suspend fun getUsersRecipes(@Body request: Map<String, String>): Response<RecipeResponse>
+
+    @POST("/update_recipe")
+    suspend fun updateRecipe(@Body request: Map<String, String>): Response<Map<String, Any>>
 }
 
 data class RecipeResponse(
@@ -48,24 +51,6 @@ fun doPostRetroMainMenu(http: String): List<Recipe> = runBlocking {
     resultList
 }
 
-//fun doPostRetroMyRecipes(login: String, http: String): List<Recipe> = runBlocking {
-//    val retrofit = Retrofit.Builder()
-//        .baseUrl(http)
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .build()
-//
-//    val service = retrofit.create(RecipeApiService::class.java)
-//    var resultList: List<Recipe> = emptyList()
-//
-//    try {
-//        val recipeResponse = service.getSixRandomRecipes()
-//        resultList = recipeResponse.result
-//    } catch (e: Exception) {
-//        // Handle the error here
-//    }
-//    resultList
-//}
-
 fun doPostRetroMyRecipes(login: String, http: String): List<Recipe> = runBlocking {
     val retrofit = Retrofit.Builder()
         .baseUrl(http)
@@ -85,4 +70,24 @@ fun doPostRetroMyRecipes(login: String, http: String): List<Recipe> = runBlockin
         // Handle the error here
     }
     resultList
+}
+
+fun doPostRetroUpdateRecipe(recipeData: Map<String, String>, http: String): Map<String, Any> = runBlocking {
+    val retrofit = Retrofit.Builder()
+        .baseUrl(http)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val service = retrofit.create(RecipeApiService::class.java)
+    var resultMap: Map<String, Any> = emptyMap()
+
+    try {
+        val response = service.updateRecipe(recipeData)
+        if (response.isSuccessful) {
+            resultMap = response.body() ?: emptyMap()
+        }
+    } catch (e: Exception) {
+        // Handle the error here
+    }
+    resultMap
 }
