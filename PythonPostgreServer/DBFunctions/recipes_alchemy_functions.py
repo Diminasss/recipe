@@ -133,3 +133,5 @@ def update_recipe_in_table(recipe_id: int, title: str, description: str, photo: 
     except Exception as e:
         logger.error(f"Ошибка при обновлении рецепта с ID {recipe_id}: {e}")
         return {"result": "error", "message": str(e)}
+
+

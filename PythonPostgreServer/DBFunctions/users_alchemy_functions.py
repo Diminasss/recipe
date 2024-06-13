@@ -84,7 +84,7 @@ def get_all_user_information_excluding_password(login: str) -> dict[str: any]:
 
         del result['password']
         return result
-print(get_all_user_information_excluding_password("login"))
+
 
 def delete_user(login: str) -> dict[str: str]:
     if user_is_in_table(login):
