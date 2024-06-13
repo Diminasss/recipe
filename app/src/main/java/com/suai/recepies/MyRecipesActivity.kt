@@ -140,6 +140,7 @@ class MyRecipesActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun onRecipeClick(id: Int){
         val recipe = databaseManager.getMyOnlyRecipeById(id)
         val intentShowYourRecipe = Intent(this, ViewRecipesActivity::class.java)
@@ -153,5 +154,6 @@ class MyRecipesActivity : AppCompatActivity() {
         intentShowYourRecipe.putExtra("author_login", recipe?.author_login)
 
         startActivity(intentShowYourRecipe)
+        //Организовать получение и отображение этих данных. И всё будет готово
     }
 }
