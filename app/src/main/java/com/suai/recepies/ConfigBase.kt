@@ -104,5 +104,3 @@ fun doGet(inHTTP: String): Map<String, Any>? {
     }
     return result
 }
-
-
