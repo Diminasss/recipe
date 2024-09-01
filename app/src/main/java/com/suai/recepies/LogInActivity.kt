@@ -8,6 +8,37 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults.cardElevation
+import androidx.compose.material3.CardDefaults.shape
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 
 
 class LogInActivity : AppCompatActivity() {
@@ -124,3 +155,58 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun showLoginPage(){
+    var login by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier.fillMaxSize().background(color = Color.Unspecified),
+        horizontalAlignment = Alignment.CenterHorizontally)
+    {
+        Card(
+            shape = RoundedCornerShape(20.dp),
+            elevation = cardElevation(20.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.log_in_person),
+                contentDescription = "Анонимная аватарка",
+                modifier = Modifier.size(145.dp).fillMaxSize()
+                )
+        }
+        Text(text="Вход")
+        OutlinedTextField(
+            value = login,
+            onValueChange = { login = it },
+            label = { Text("Введите логин") }
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Введите логин") }
+        )
+        Button(
+            onClick = {
+            // Действие при нажатии на кнопку
+        },
+            ) {
+            Text("Войти")
+        }
+
+        Text(
+            text = "Нет аккаунта? \nЗарегистрироваться!",
+            textAlign = TextAlign.Center,
+            color = Color.Blue, // Цвет текста
+            modifier = Modifier
+                .clickable {
+                    // Действие при нажатии на текст
+
+                }
+                .padding(16.dp)
+        )
+
+    }
+}
+
